@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Insights | Disruptive Capital</title>
+    <link rel="stylesheet" href="/Homepage/styles.css">
+    <script src="../scripts.js" defer></script>
+</head>
+<body>
+    <!--Header Component-->
+    <div id="header-placeholder"></div>
+    <script>
+      fetch('/Navigation_Menu/Main_Header')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          const headerPlaceholder = document.getElementById('header-placeholder');
+          headerPlaceholder.innerHTML = data;
+
+          // Execute any scripts in the fetched HTML
+          const scripts = headerPlaceholder.getElementsByTagName('script');
+          for (let script of scripts) {
+            const newScript = document.createElement('script');
+            newScript.textContent = script.textContent;
+            document.body.appendChild(newScript);
+          }
+        })
+        .catch(error => console.error('Error loading header:', error));
+    </script>
+
+
+
+    <!-- Reports Section -->
+    <section id="reports" class="featured-reports">
+        <h2>Reports Archive</h2>
+    
+        <!-- Search Bar and Category Filter -->
+        <div class="search-container">
+            <input 
+                type="text" 
+                id="reportSearch" 
+                placeholder="Search reports by title or description..." 
+            />
+            <select id="categoryFilter" class="search-button">
+                <option value="">All Categories</option>
+                <option value="tech">Tech</option>
+                <option value="energy">Energy</option>
+                <option value="urban">Urban</option>
+            </select>
+        </div>
+    
+        <!-- Reports Grid -->
+        <div class="report-grid">
+          <div class="report-card" data-category="tech">
+            <img src="/Navigation_Menu/Reports/Images/Powering_the_Future.png" alt="Report 1">
+            <h3>Powering the Future: Opportunities in AI Infrastructure
+            </h3>
+            <p>November 2024 |
+              Disruptive Capital Insight Report
+              </p>
+            <a href="/Navigation_Menu/Reports/All_Reports/Powering_the_Future.html" class="report-button">Read Report</a>
+        </div>
+
+        <div class="report-card">
+          <img src="/Navigation_Menu/Reports/Images/Beyond_Earth.png" alt="Report 2">
+          <h3>Beyond Earth: Opportunities in the Emerging Space Industry</h3>
+          <p>November 2024 |
+            Disruptive Capital Insight Report
+            </p>
+          <a href="/Navigation_Menu/Reports/All_Reports/Beyond_Earth.html" class="report-button">Read Report</a>
+      </div>
+
+
+            <div class="report-card" data-category="tech">
+                <img src="/Navigation_Menu/Reports/Images/Quantum_Computing.png">
+                <h3>Quantum Computing: The Next Frontier in Technological Transformation
+                </h3>
+                <p>November 2024 |
+                  Disruptive Capital Insight Report
+                  </p>
+                <a href="/Navigation_Menu/Reports/All_Reports/Quantum_Computing.html" class="report-button">Read Report</a>
+            </div>
+            
+
+
+            <div class="report-card" data-category="energy">
+                <img src="/Navigation_Menu/Reports/Images/Fueling_the_Future.png" alt="Report 3">
+                <h3>Fueling the Future: Opportunities in 
+                  Green Hydrogen Production
+                  </h3>
+                <p>November 2024 |
+                  Disruptive Capital Insight Report
+                  </p>
+                <a href="/Navigation_Menu/Reports/All_Reports/Fueling_the_Future.html" class="report-button">Read Report</a>
+            </div>
+
+
+            <div class="report-card" data-category="tech">
+              <img src="/Navigation_Menu/Reports/Images/Forging_the_Future.png" alt="Report 4">
+              <h3>Forging the Future: Opportunities in Semiconductor Manufacturing</h3>
+              <p>November 2024 |
+                Disruptive Capital Insight Report
+                </p>
+              <a href="/Navigation_Menu/Reports/All_Reports/Forging_the_Future.html" class="report-button">Read Report</a>
+          </div>
+
+        <div class="report-card" data-category="urban">
+          <img src="/Navigation_Menu/Reports/Images/Building_the_Future.png" alt="Report 5">
+          <h3>Building the Future: Opportunities in Advanced Materials – Graphene and 2D Materials
+          </h3>
+          <p>November 2024 |
+            Disruptive Capital Insight Report
+            </p>
+          <a href="/Navigation_Menu/Reports/All_Reports/Building_the_Future.html" class="report-button">Read Report</a>
+      </div>
+      <div class="report-card" data-category="urban">
+        <img src="/Navigation_Menu/Reports/Images/Growing_the_Future.png" alt="Report 6">
+        <h3>Growing the Future: Opportunities in Vertical Farming and AgriTech
+        </h3>
+        <p>November 2024 |
+          Disruptive Capital Insight Report
+          </p>
+        <a href="/Navigation_Menu/Reports/All_Reports/Growing_the_Future.html" class="report-button">Read Report</a>
+    </div>
+
+
+      <div class="report-card" data-category="urban">
+        <img src="/Navigation_Menu/Reports/Images/Engineering_Life.png" alt="Report 7">
+        <h3>Engineering Life: Opportunities in Synthetic Biology
+        </h3>
+        <p>November 2024 |
+          Disruptive Capital Insight Report
+          </p>
+        <a href="/Navigation_Menu/Reports/All_Reports/Engineering_Life.html" class="report-button">Read Report</a>
+    </div>
+
+
+    <div class="report-card" data-category="tech">
+      <img src="/Navigation_Menu/Reports/Images/Woven_Innovation.png" alt="Report 8">
+      <h3>Woven Innovation: Opportunities in Smart Textiles and Wearable Tech</h3>
+      <p>November 2024 |
+        Disruptive Capital Insight Report
+        </p>
+      <a href="/Navigation_Menu/Reports/All_Reports/Woven_Innovation.html" class="report-button">Read Report</a>
+  </div>
+  
+
+        </div>
+
+        
+   <!-- Page Content -->
+   <div class="container">
+    <h3>Established & Emerging VC Countries</h3>
+    <p>Discover the countries transforming the global VC landscape. These rising stars are home to booming industries and skyrocketing investment opportunities, shaping the future of innovation and entrepreneurship.
+    </p>
+    <br>
+
+
+  <a href="../risingstars.html" class="button-link">View Rising Stars</a>
+</div>
+
+    </section>
+
+    
+    
+
+    <title>Global Total VC Invested</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        height: 2000px; /* Add height to enable scrolling */
+      }
+      .chart-container {
+        width: 90%;
+        margin: auto;
+        margin-top: 5px; /* Adjust placement */
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+      .chart-container.visible {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+  
+    <!--Footer Component-->
+    <div id="footer"></div>
+    <script>
+      fetch('/Footer/footer.html')
+        .then(response => response.text())
+        .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
+
+
+
+    <script>
+      // Chart data and configuration
+      const data = {
+        labels: ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"],
+        datasets: [
+          {
+            label: 'VC Amount Raised',
+            data: [123, 191.6, 189.1, 234.6, 346.2, 322.8, 344.4, 722.3, 514.7, 326.1, 320.2],
+            backgroundColor: [
+              'rgba(54, 162, 235, 0.6)', // Blue for the VC amount
+            ],
+            borderColor: [
+              'rgba(54, 162, 235, 1)',
+            ],
+            borderWidth: 1
+          },
+          {
+            label: 'Projection',
+            data: [null, null, null, null, null, null, null, null, null, null, 320.2],
+            backgroundColor: [
+              'rgba(201, 203, 207, 0.6)' // Grey for projections
+            ],
+            borderColor: [
+              'rgba(201, 203, 207, 1)',
+            ],
+            borderWidth: 1
+          }
+        ]
+      };
+  
+      const options = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Global Total VC Invested (incl. 2024 projection)'
+          }
+        },
+        animation: {
+          duration: 2000, // 2 seconds for the animation
+          easing: 'easeOutBounce', // Adds a bounce effect
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function (value) {
+                return `$${value}B`; // Add the B suffix to the y-axis labels
+              }
+            }
+          }
+        }
+      };
+  
+      let chartInitialized = false; // Flag to ensure the chart initializes only once
+  
+      const createChart = () => {
+        const ctx = document.getElementById('vcChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: data,
+          options: options
+        });
+      };
+  
+      // Intersection Observer to detect when the chart container is in view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !chartInitialized) {
+            entry.target.classList.add('visible'); // Make the chart visible
+            createChart(); // Initialize the chart
+            chartInitialized = true; // Prevent re-initialization
+          }
+        });
+      }, {
+        threshold: 0.2 // Trigger when 50% of the container is visible
+      });
+  
+      // Attach observer to the chart container
+      const chartContainer = document.querySelector('.chart-container');
+      observer.observe(chartContainer);
+    </script>
+
+    
+  
+
+
+
+
+    
+</body>
+</html>
+

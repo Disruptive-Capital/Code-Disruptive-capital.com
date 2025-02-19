@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      h1 {
+        margin: 10px 0;
+        font-size: 1.5rem;
+        color: #000000;
+        font-family: "Playfair Display", serif; /* Apply Playfair Display font */
+      }
+
+      svg {
+        display: block;
+      }
+
+      .bar {
+        fill: #002147;
+        transition: fill 0.3s, transform 0.2s;
+        cursor: pointer;
+      }
+
+      .bar:hover {
+        fill: #002147;
+        transform: scale(1.02);
+      }
+
+      .value {
+        fill: #ffffff;
+        font-weight: bold;
+        text-anchor: end;
+      }
+
+      .axis path,
+      .axis line {
+        stroke: #ccc;
+      }
+
+      /* Apply Playfair Display to y-axis labels and increase font size */
+      .axis text {
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+      }
+
+      @media (max-width: 480px) {
+        .axis text {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Global Leading Industries by VC Investment, 2024</h1>
+    <svg id="chart"></svg>
+
+    <script>
+      // Data for the chart
+      const data = [
+        { industry: "Enterprise Software", value: 53.4 },
+        { industry: "Health", value: 51.2 },
+        { industry: "Fintech", value: 25.6 },
+        { industry: "Transportation", value: 23.4 },
+        { industry: "Energy", value: 20.0 },
+        { industry: "Robotics", value: 14.7 },
+        { industry: "Security", value: 14.1 },
+        { industry: "Semiconductors", value: 11.3 },
+        { industry: "Food", value: 10.9 },
+        { industry: "Marketing", value: 7.0 },
+      ];
+
+      // Dynamically set dimensions based on screen size
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      const margin = {
+        top: 20,
+        right: 20,
+        bottom: 40,
+        left: 100,
+      };
+
+      const width = screenWidth - margin.left - margin.right;
+      const height = screenHeight;
+
+      // Set up SVG with responsive scaling
+      const svg = d3
+        .select("#chart")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        )
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .style("width", "100%")
+        .style("height", "100%")
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // Create scales
+      const x = d3
+        .scaleLinear()
+        .domain([0, d3.max(data, (d) => d.value)])
+        .range([0, width]);
+
+      const y = d3
+        .scaleBand()
+        .domain(data.map((d) => d.industry))
+        .range([0, height])
+        .padding(0.2);
+
+      // Create axes
+      const xAxis = d3
+        .axisBottom(x)
+        .ticks(5)
+        .tickFormat((d) => `$${d}B`);
+      const yAxis = d3.axisLeft(y);
+
+      // Append axes
+      svg.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
+
+      svg
+        .append("g")
+        .attr("class", "axis") // Add class for styling
+        .call(yAxis);
+
+      // Draw bars
+      svg
+        .selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("y", (d) => y(d.industry))
+        .attr("height", y.bandwidth())
+        .attr("x", 0)
+        .attr("width", 0)
+        .transition()
+        .duration(1000)
+        .delay((d, i) => i * 100)
+        .attr("width", (d) => x(d.value));
+
+      // Add value labels
+      svg
+        .selectAll(".value")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "value")
+        .attr("y", (d) => y(d.industry) + y.bandwidth() / 2 + 4)
+        .attr("x", 0)
+        .text((d) => `$${d.value}B`)
+        .transition()
+        .duration(1000)
+        .delay((d, i) => i * 100)
+        .attr("x", (d) => x(d.value) - 5);
+
+      // Interactivity
+      svg
+        .selectAll(".bar")
+        .on("mouseover", function (event, d) {
+          d3.select(this).transition().duration(200).attr("fill", "#66b3ff");
+        })
+        .on("mouseout", function () {
+          d3.select(this).transition().duration(200).attr("fill", "#000000");
+        })
+        .on("click", (event, d) => {
+          alert(`Industry: ${d.industry}\nInvestment: $${d.value}B`);
+        });
+    </script>
+  </body>
+</html>

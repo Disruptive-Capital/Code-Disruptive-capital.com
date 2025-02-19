@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quantum Computing Report</title>
+
+  <!-- Your scripts and styles -->
+  <script src="../scripts.js"></script>
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Load Chart.js once -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Roboto font -->
+
+
+  <style>
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #fff;
+      font-family: inherit;
+    }
+
+    /* Dark blue background + white text (original scheme) */
+    .start {
+      background-color: #002147;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      position: relative;
+      top: 0;
+    }
+
+    /*
+      We split the main title into two parts:
+      1) Big uppercase for the part before the colon
+      2) Smaller line for the part after the colon
+    */
+    .main-headline {
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    /* Large text for the first line */
+    .headline-part {
+      display: block;  /* Force it onto its own line */
+      font-size: 3rem; /* Big headline */
+    }
+
+    /* Smaller text for the second line */
+    .headline-desc {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 0.5rem;
+      text-transform: none; /* normal case */
+      font-style: normal;
+    }
+
+    /* Subtitle under the headline */
+    .start h2 {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 10px auto 0;
+      max-width: 800px;
+      color: #fff;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      font-family: 'Roboto', sans-serif; /* Body text in Roboto */
+    }
+
+    section {
+      margin: 40px 0;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: #002147;
+      margin-bottom: 15px;
+    }
+
+    section h3 {
+      font-size: 1.5rem;
+      color: #004080;
+      margin-bottom: 10px;
+    }
+
+    p span {
+      font-weight: bold;
+      color: #002147;
+    }
+
+    p strong {
+      font-weight: bold;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    /* Fade-in effect for sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      visibility: hidden;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    h4 {
+      margin-block-start: 1.33em;
+      margin-block-end: 1.33em;
+      font-weight: bold;
+      unicode-bidi: isolate;
+    }
+
+    .chart-container {
+  /* Your existing rules... */
+      margin: 40px auto 20px; /* a bit of bottom margin so text won’t overlap */
+      position: relative;
+      height: 400px; 
+      box-sizing: border-box;
+    }
+
+
+    .chart-container canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      main {
+        max-width: 90%;
+      }
+      .headline-part {
+        font-size: 2.5rem;
+      }
+      .headline-desc {
+        font-size: 1.2rem;
+      }
+      .start h2 {
+        font-size: 1rem;
+      }
+      /* Slightly smaller chart on tablets */
+      .chart-container {
+        height: 300px;
+        margin: 40px auto 15px; /* keep some bottom space too */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .headline-part {
+        font-size: 2rem;
+      }
+      .headline-desc {
+        font-size: 1rem;
+      }
+      .start h2 {
+        font-size: 0.9rem;
+      }
+      /* Even smaller chart on phones */
+      .chart-container {
+        height: 250px;
+        margin: 40px auto 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--Header-->
+  <dc-header></dc-header>
+
+    <div class="start">
+      <h1 class="main-headline">
+        <span class="headline-part">Quantum Computing</span>
+        <span class="headline-desc"
+          >The Next Frontier in Technological Transformation</span
+        >
+      </h1>
+      <h2>Disruptive Capital Insight Report | November 2024</h2>
+    </div>
+
+    <main>
+      <section class="fade-in">
+        <h2>Executive Summary</h2>
+        <p>
+          Quantum computing is no longer a concept confined to theoretical
+          physics—it is rapidly emerging as a cornerstone of technological
+          innovation, unlocking economic value on an unprecedented scale. With
+          over $20 billion in global investments in 2024, quantum computing is
+          set to revolutionize industries, from pharmaceuticals to finance and
+          logistics, by solving complex problems at speeds unimaginable with
+          classical systems.
+        </p>
+        <p>
+          This report explores the quantum computing ecosystem, offering an
+          in-depth analysis of its growth trajectory, transformative
+          applications, and the geopolitical race to dominate this frontier. By
+          providing actionable insights, we guide corporates, investors, and
+          policymakers to capitalize on this lucrative market.
+        </p>
+        <p>
+          <strong>Our Perspective:</strong> Quantum computing represents not
+          just technological advancement but a historic opportunity to reshape
+          industries. Leaders investing today will not just participate—they
+          will define the future.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Market Dynamics: A Gateway to Trillion-Dollar Opportunities</h2>
+        <p>
+          Quantum computing is not just growing—it is redefining what is
+          possible. The global market, valued at <span>$456 million</span> in
+          2022, is projected to skyrocket to <span>$5.3 billion</span> by 2030,
+          driven by a compound annual growth rate (CAGR) of <span>30.2%</span>.
+          This explosive growth signals a paradigm shift that transcends
+          traditional technological trends.
+        </p>
+        <h3>Drivers of Growth</h3>
+        <ul>
+          <li>
+            <strong>Breakthrough Technologies:</strong> Advances in
+            superconducting qubits and trapped ions are enhancing stability and
+            scalability, overcoming barriers that once limited quantum systems.
+          </li>
+          <li>
+            <strong>Industry Adoption:</strong> Companies are piloting quantum
+            solutions in sectors where traditional computing struggles to scale,
+            such as drug discovery, risk analysis, and supply chain
+            optimization.
+          </li>
+          <li>
+            <strong>Strategic Investments:</strong> Governments, venture
+            capitalists, and corporations are pouring billions into quantum
+            R&D, aiming to secure early leadership in this high-stakes domain.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Quantum Chart -->
+      <div class="chart-container">
+        <canvas id="quantumGraph"></canvas>
+      </div>
+
+      <section class="fade-in">
+        <h2>Applications of Quantum Computing: Transforming Industries</h2>
+        <h3>Pharmaceuticals: The Drug Discovery Revolution</h3>
+        <p>
+          Quantum computing is transforming pharmaceutical R&D by enabling
+          highly accurate simulations of molecular interactions. Traditional
+          trial-and-error approaches can take years, but quantum algorithms
+          allow researchers to identify promising compounds and accelerate drug
+          development.
+        </p>
+        <ul>
+          <li>
+            <strong>Case Study:</strong> Advances in superconducting qubits and
+            trapped ions are enhancing stability and scalability, overcoming
+            barriers that once limited quantum systems.
+          </li>
+          <li>
+            <strong>Economic Impact:</strong> Quantum-powered simulations could
+            cut drug development timelines by 70% and reduce R&D costs by up to
+            40%.
+          </li>
+        </ul>
+
+        <h2>Finance: Redefining Risk and Reward</h2>
+        <p>
+          Quantum computing offers unparalleled advantages in portfolio
+          optimization, fraud detection, and risk management. Its ability to
+          process and optimize across multiple variables simultaneously gives it
+          a significant edge over classical systems.
+        </p>
+        <p>
+          <strong>Example:</strong> JPMorgan Chase is using quantum algorithms
+          to enhance derivatives pricing, a market worth over
+          <span>$12 trillion</span> globally. These models enable real-time risk
+          assessments and more accurate predictive analytics.
+        </p>
+        <p>
+          <strong>Future Potential:</strong> Financial institutions integrating
+          quantum systems within the next five years are expected to outperform
+          competitors still reliant on classical computing, particularly in
+          volatile markets.
+        </p>
+        <p>
+          <strong>Investor Insight:</strong> Quantum finance is not just about
+          speed; it’s about precision and competitive advantage in managing
+          complexity.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Logistics: Streamlining Global Supply Chains</h2>
+        <p>
+          The logistics industry, with its multifaceted challenges in routing,
+          scheduling, and resource allocation, is primed for disruption by
+          quantum computing. Traditional optimization models falter when
+          complexity scales exponentially, making this sector a natural fit for
+          quantum solutions.
+        </p>
+        <p>
+          <strong>Case Study:</strong> Volkswagen used quantum algorithms to
+          optimize traffic flow in Lisbon, reducing congestion by 15%. This
+          pilot underscores the potential for quantum-powered logistics systems
+          to enhance urban mobility and supply chain efficiency.
+        </p>
+        <p>
+          <strong>Broader Applications:</strong> From dynamic route optimization
+          to just-in-time inventory systems, quantum-enabled logistics solutions
+          promise significant cost savings and efficiency gains.
+        </p>
+        <p>
+          <strong>Why Act Now:</strong> Early adoption of quantum logistics
+          solutions will provide a competitive edge in global trade and
+          operations.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Regional Competition: The Global Quantum Race</h2>
+        <p>
+          <strong>United States: Dominating Commercialization</strong><br />
+          The U.S. leads in quantum computing commercialization, investing
+          <span>$2.2 billion</span> in 2024. Firms like IBM, Google, and
+          Honeywell are driving innovation in scalable quantum systems and
+          hybrid quantum-classical models. Federal support through initiatives
+          like the National Quantum Initiative Act further strengthens the
+          country’s leadership position.
+        </p>
+
+        <p>
+          <strong>China: Building an Ecosystem</strong><br />
+          China’s estimated <span>$1.9 billion</span> annual investment reflects
+          its ambition to dominate the quantum ecosystem. The nation has
+          achieved world-first milestones, such as the launch of the
+          quantum-secure Micius satellite. Its end-to-end control over quantum
+          R&D and commercialization positions it as a formidable competitor.
+        </p>
+
+        <p>
+          <strong>Europe and Australia: Niche Innovators</strong><br />
+          Europe’s Quantum Flagship Program, with a <span>$1 billion</span>
+          budget, highlights its focus on cryptography and academic research.
+          Meanwhile, Australia is emerging as a hardware leader, with
+          PsiQuantum’s <span>$1 billion</span> project aiming to develop a
+          fault-tolerant quantum computer by 2030.
+        </p>
+
+        <p>
+          <strong>Strategic Insight:</strong> Geopolitical competition in
+          quantum computing mirrors the space race of the 20th century. Nations
+          vying for leadership are not just securing economic growth—they are
+          shaping global security and technological sovereignty.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Strategic Recommendations: Capturing the Quantum Advantage</h2>
+        <ol>
+          <li>
+            <strong>Invest in Ecosystem Development:</strong><br />
+            Build quantum-ready infrastructure, from specialized data centers to
+            software platforms, while fostering talent pipelines through
+            partnerships with academia and industry.
+          </li>
+
+          <li>
+            <strong>Collaborate for Scale:</strong><br />
+            Public-private alliances can accelerate quantum deployment. For
+            example, NASA and Google’s collaboration on quantum supremacy
+            demonstrated the power of cross-sector partnerships to solve
+            problems previously deemed insurmountable.
+          </li>
+
+          <li>
+            <strong>Focus on Early Wins:</strong><br />
+            Target industries where hybrid quantum-classical solutions can
+            deliver immediate returns, such as logistics and pharmaceuticals.
+            These pilot projects can validate the technology while generating
+            measurable ROI.
+          </li>
+
+          <li>
+            <strong>Monitor Policy and Regulation:</strong><br />
+            Engage with policymakers to shape emerging quantum standards,
+            particularly in areas like encryption and secure communication,
+            which will influence market dynamics.
+          </li>
+        </ol>
+      </section>
+
+      <section class="fade-in">
+        <h2>Conclusion: The Quantum Economy Beckons</h2>
+        <p>
+          Quantum computing is more than an emerging technology—it is the
+          foundation for the next wave of industrial and economic
+          transformation. From revolutionizing healthcare to optimizing global
+          supply chains, quantum systems will reshape how businesses operate and
+          compete.
+        </p>
+        <p>
+          <strong>Call to Action:</strong> Organizations that invest in quantum
+          infrastructure and applications today are not just keeping pace with
+          innovation—they are leading it. As this trillion-dollar opportunity
+          unfolds, the time to act is now.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Call to Action</h2>
+        <p>
+          Gain unparalleled insights into emerging trends and disruptive markets
+          with <strong>Disruptive Capital</strong>. Contact us to discover
+          tailored strategies and unlock the immense opportunities shaping the
+          future.
+        </p>
+        <p><strong>Take the first step—partner with us today.</strong></p>
+      </section>
+    </main>
+
+  <script>
+    // Quantum Graph setup
+    const ctx = document.getElementById('quantumGraph').getContext('2d');
+    const data = {
+      labels: ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+      datasets: [{
+        label: 'Market Revenue (in million U.S. dollars)',
+        data: [230, 493, 1047, 1745, 2425, 3449, 4765, 6274, 7826, 9776],
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        fill: true,
+        tension: 0.4
+      }]
+    };
+
+    const config = {
+      type: 'line',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, // Let the container's fixed height rule
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Year'
+            },
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Revenue (in million USD)'
+            },
+            grid: {
+              color: '#e5e5e5'
+            }
+          }
+        }
+      }
+    };
+    new Chart(ctx, config);
+
+    // Fade-in effect
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeInSections = document.querySelectorAll('.fade-in');
+
+      const revealSections = () => {
+        fadeInSections.forEach(section => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+
+          if (sectionTop < triggerPoint) {
+            section.classList.add('visible');
+          }
+        });
+      };
+
+      // Check on page load and on scroll
+      window.addEventListener('scroll', revealSections);
+      revealSections();
+    });
+  </script>
+
+  <script src="./components/Header.js"></script>
+</body>
+</html>

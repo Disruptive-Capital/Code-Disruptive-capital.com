@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global VC Landscape</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto';
+      background-color: #ffffff;
+      color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    section {
+      opacity: 0; /* Initially invisible */
+      transform: translateY(50px); /* Initially shifted down */
+      transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth ease-out effect */
+      margin: 50px 0;
+    }
+
+    section.active {
+      opacity: 1; /* Fully visible */
+      transform: translateY(0); /* Slide into position */
+    }
+
+    .intro {
+      background: linear-gradient(145deg, #121F32, #555);
+      padding: 50px;
+      text-align: center;
+      color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .intro h1 {
+      font-size: 2.5em;
+      margin: 0;
+    }
+
+    .intro p {
+      font-size: 1.2em;
+      margin: 10px 0 0;
+    }
+
+    .country {
+      background: linear-gradient(145deg, #ffffff, #ffffff);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0);
+    }
+
+    .country h2 {
+      font-size: 1.8em;
+      color: #121F32;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      margin-top: 10px;
+    }
+
+    .content p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .content span {
+      color: #000000;
+      font-weight: bold;
+    }
+
+    strong {
+      color: #8ab4f8;
+    }
+
+    @media (max-width: 768px) {
+      .intro h1 {
+        font-size: 2em;
+      }
+
+      .country h2 {
+        font-size: 1.5em;
+      }
+
+      .content p {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="intro">
+      <h1>🌍 Global Venture Capital Landscape 2023</h1>
+      <p>Key trends and insights across leading nations.</p>
+    </section>
+
+    <section class="country" id="usa">
+      <h2>United States</h2>
+      <div class="content">
+        <p><span>Total VC Investment (2023):</span> <strong>$153.1 billion</strong></p>
+        <p><span>Main Sectors:</span> Technology, healthcare, fintech, and AI</p>
+        <p><span>Growth:</span> Mature VC ecosystem with 10–15% annual growth.</p>
+      </div>
+    </section>
+
+    <section class="country" id="china">
+      <h2>China</h2>
+      <div class="content">
+        <p><span>Total VC Investment (2023):</span> <strong>$54.7 billion</strong></p>
+        <p><span>Main Sectors:</span> E-commerce, green energy, and AI</p>
+        <p><span>Growth:</span> Major player with robust government support.</p>
+      </div>
+    </section>
+
+    <!-- Additional countries -->
+    <section class="country" id="india">
+      <h2>India</h2>
+      <div class="content">
+        <p><span>Total VC Investment (2023):</span> <strong>$11.5 billion</strong></p>
+        <p><span>Main Sectors:</span> Fintech, e-commerce, and edtech</p>
+        <p><span>Growth:</span> India’s VC activity has doubled since 2018, fueled by its digital economy and rising middle class.</p>
+      </div>
+    </section>
+
+    <section class="country" id="uk">
+        <h2>United Kingdom</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$19.7 billion</strong></p>
+          <p><span>Main Sectors:</span> Fintech, health tech, and AI</p>
+          <p><span>Growth:</span> London is Europe’s financial tech hub.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="india">
+        <h2>India</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$11.5 billion</strong></p>
+          <p><span>Main Sectors:</span> Fintech, e-commerce, and edtech</p>
+          <p><span>Growth:</span> India’s VC activity has doubled since 2018.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="france">
+        <h2>France</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$9.4 billion</strong></p>
+          <p><span>Main Sectors:</span> AI, SaaS, and green energy</p>
+          <p><span>Growth:</span> Boosted by "La French Tech" initiatives.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="korea">
+        <h2>South Korea</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$8.9 billion</strong></p>
+          <p><span>Main Sectors:</span> Electronics, gaming, and AI</p>
+          <p><span>Growth:</span> 10% annual growth driven by subsidies.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="germany">
+        <h2>Germany</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$8 billion</strong></p>
+          <p><span>Main Sectors:</span> Automotive innovation and green energy</p>
+          <p><span>Growth:</span> Emphasis on sustainability and manufacturing.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="canada">
+        <h2>Canada</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$6.7 billion</strong></p>
+          <p><span>Main Sectors:</span> AI, clean energy, and digital health</p>
+          <p><span>Growth:</span> Rapid growth in Toronto-Waterloo Corridor.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="singapore">
+        <h2>Singapore</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$5.8 billion</strong></p>
+          <p><span>Main Sectors:</span> Fintech and logistics</p>
+          <p><span>Growth:</span> 25% increase in activity since 2020.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="sweden">
+        <h2>Sweden</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$5 billion</strong></p>
+          <p><span>Main Sectors:</span> Green energy and tech startups</p>
+          <p><span>Growth:</span> Sustainability drives investment.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="japan">
+        <h2>Japan</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$4.8 billion</strong></p>
+          <p><span>Main Sectors:</span> Robotics, AI, and health tech</p>
+          <p><span>Growth:</span> Innovation in automation driven by aging population.</p>
+        </div>
+      </section>
+  
+      <section class="country" id="israel">
+        <h2>Israel</h2>
+        <div class="content">
+          <p><span>Total VC Investment (2023):</span> <strong>$4.4 billion</strong></p>
+          <p><span>Main Sectors:</span> Cybersecurity, AI, and health tech</p>
+          <p><span>Growth:</span> Known as the "Startup Nation".</p>
+
+  </div>
+
+  <script>
+    document.addEventListener("scroll", () => {
+      const sections = document.querySelectorAll("section");
+
+      sections.forEach((section) => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+
+        if (sectionTop < triggerPoint) {
+          section.classList.add("active");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

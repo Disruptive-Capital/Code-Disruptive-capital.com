@@ -1,0 +1,175 @@
+<style>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  font-family: inherit;
+}
+
+/* Dark blue background + white text (original scheme) */
+.start {
+  background-color: #002147;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  top: 0;
+}
+
+/*
+We split the main title into two parts:
+1) Big uppercase for the part before the colon
+2) Smaller line for the part after the colon
+*/
+.main-headline {
+  font-family: "Georgia", serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  color: #fff;
+}
+
+/* Large text for the first line */
+.headline-part {
+  display: block; /* Force it onto its own line */
+  font-size: 3rem; /* Big headline */
+}
+
+/* Smaller text for the second line */
+.headline-desc {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  text-transform: none; /* normal case */
+  font-style: normal;
+}
+
+/* Subtitle under the headline */
+.start h2 {
+  font-family: "Georgia", serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  font-style: italic;
+  margin: 10px auto 0;
+  max-width: 800px;
+  color: #fff;
+}
+
+main {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #fff;
+  font-family: "Georgia", serif; /* Body text in Georgia */
+}
+
+section {
+  margin: 40px 0;
+}
+
+section h2 {
+  font-size: 2rem;
+  color: #002147;
+  margin-bottom: 15px;
+}
+
+section h3 {
+  font-size: 1.5rem;
+  color: #004080;
+  margin-bottom: 10px;
+}
+
+p span {
+  font-weight: bold;
+  color: #002147;
+}
+
+p strong {
+  font-weight: bold;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Fade-in effect for sections */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  visibility: hidden;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+h4 {
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  font-weight: bold;
+  unicode-bidi: isolate;
+}
+
+/* Chart container: responsive and sized */
+.graph {
+  width: 100%;
+  max-width: 900px;
+  margin: 100px auto;
+  position: relative;
+  height: 400px; /* Original desktop height */
+  box-sizing: border-box;
+}
+
+.graph canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  main {
+    max-width: 90%;
+  }
+  .headline-part {
+    font-size: 2.5rem;
+  }
+  .headline-desc {
+    font-size: 1.2rem;
+  }
+  .start h2 {
+    font-size: 1rem;
+  }
+  .graph {
+    margin: 80px auto 90px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headline-part {
+    font-size: 2rem;
+  }
+  .headline-desc {
+    font-size: 1rem;
+  }
+  .start h2 {
+    font-size: 0.9rem;
+  }
+  .graph {
+    margin: 80px auto 90px;
+    height: 320px;
+  }
+}
+</style>
+</head>

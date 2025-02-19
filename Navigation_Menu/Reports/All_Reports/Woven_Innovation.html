@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shaping the Future: Fitness Technology Opportunities</title>
+
+  <!-- Chart.js + your scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../scripts.js"></script>
+
+  <!-- Main stylesheet + Google Fonts -->
+  <link rel="stylesheet" href="../styles.css" />
+
+
+  <style>
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #fff;
+      font-family: inherit;
+    }
+
+    /* Dark blue background + white text */
+    .start {
+      background-color: #002147;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      position: relative;
+      top: 0;
+    }
+
+    .main-headline {
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      color: #fff;
+    }
+    /* Large text for the first line */
+    .headline-part {
+      display: block;  /* Force it onto its own line */
+      font-size: 3rem; /* Big headline on desktop */
+    }
+    /* Smaller text for the second line */
+    .headline-desc {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 0.5rem;
+      text-transform: none;
+      font-style: normal;
+    }
+
+    .start h2 {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 10px auto 0;
+      max-width: 800px;
+      color: #fff;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      font-family: 'Roboto', sans-serif; /* Body text in Roboto */
+    }
+
+    section {
+      margin: 40px 0;
+    }
+    section h2 {
+      font-size: 2rem;
+      color: #002147;
+      margin-bottom: 15px;
+    }
+    section h3 {
+      font-size: 1.5rem;
+      color: #004080;
+      margin-bottom: 10px;
+    }
+
+    p span {
+      font-weight: bold;
+      color: #002147;
+    }
+    p strong {
+      font-weight: bold;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    /* Fade-in effect for sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      visibility: hidden;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    h4 {
+      margin-block-start: 1.33em;
+      margin-block-end: 1.33em;
+      font-weight: bold;
+      unicode-bidi: isolate;
+    }
+
+    /* 
+      Chart container with fixed height for desktop (400px).
+      We increase bottom margin to reduce text overlap on mobile.
+    */
+    .chart-container {
+      margin: 40px auto 40px; 
+      position: relative;
+      height: 400px; 
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* 
+      If a <section> or <p> directly follows the chart container,
+      add additional top margin to ensure more space on mobile screens.
+    */
+    .chart-container + section,
+    .chart-container + p {
+      margin-top: 60px !important;
+    }
+
+    .chart-container canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      main {
+        max-width: 90%;
+      }
+      .headline-part {
+        font-size: 2.5rem;
+      }
+      .headline-desc {
+        font-size: 1.2rem;
+      }
+      .start h2 {
+        font-size: 1rem;
+      }
+      .chart-container {
+        height: 300px; /* tablet size */
+        margin: 40px auto 120px; /* extra spacing at bottom on tablets */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .headline-part {
+        font-size: 2rem;
+      }
+      .headline-desc {
+        font-size: 1rem;
+      }
+      .start h2 {
+        font-size: 0.9rem;
+      }
+      section h2 {
+        font-size: 1.8rem; /* reduce heading size on phones */
+      }
+      .chart-container {
+        height: 250px; /* phone size */
+        margin: 40px auto 120px; /* bigger bottom margin on phones */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--Header Component-->
+  <dc-header></dc-header>
+
+    <div class="start">
+      <h1 class="main-headline">
+        <span class="headline-part">Shaping the Future</span>
+        <span class="headline-desc">Fitness Technology Opportunities</span>
+      </h1>
+      <h2>Disruptive Capital Insight Report | November 2024</h2>
+    </div>
+    <main>
+      <section class="fade-in">
+        <h2>Executive Summary</h2>
+        <p>
+          Fitness technology is transforming how individuals monitor, manage, and
+          improve their health. From AI-driven wearable devices to smart gym
+          equipment, this sector is redefining personal wellness and performance
+          tracking.
+        </p>
+        <p>
+          In 2024, the fitness technology market attracted over
+          <span>$800 million</span> in investments. With a projected CAGR of
+          <span>20%</span>, the market is expected to grow from
+          <span>$4 billion</span> in 2023 to <span>$15 billion</span> by 2030.
+        </p>
+        <p>
+          <strong>Our Perspective:</strong> Fitness technology isn’t just about
+          health—it’s about creating a data-driven ecosystem for better living.
+          Early stakeholders can shape the future of this high-impact industry.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>The Market at a Glance</h2>
+        <p>
+          The fitness technology market is accelerating, driven by advancements
+          in wearables, AI analytics, and immersive training systems.
+        </p>
+        <h3>Why It’s Exciting</h3>
+        <ul>
+          <li>
+            <strong>Integrated Solutions:</strong> Devices are connecting
+            seamlessly with ecosystems like Apple Health and Google Fit.
+          </li>
+          <li>
+            <strong>Data-Driven Insights:</strong> Advanced analytics enable
+            personalized health recommendations, empowering users.
+          </li>
+          <li>
+            <strong>Market Potential:</strong> The projected market size of
+            <span>$15 billion</span> by 2030 highlights growing adoption.
+          </li>
+        </ul>
+        <p>
+          <strong>Key Insight:</strong> Fitness technology is expanding beyond
+          wearables, redefining engagement with health data.
+        </p>
+      </section>
+
+      <div class="chart-container">
+        <h3>Global Fitness Technology Market Growth (2023–2030)</h3>
+        <canvas id="fitnessTechGraph" width="800" height="400"></canvas>
+        <p><em>Figure: Market growth of fitness technology (in billion U.S. dollars).</em></p>
+      </div>
+
+      <section class="fade-in">
+        <h2>Key Drivers of Growth</h2>
+        <h3>1. Smart Wearables</h3>
+        <p>
+          Smartwatches, fitness trackers, and connected devices are providing
+          real-time health insights.
+        </p>
+        <h4>Example: Apple Watch Series 9</h4>
+        <p>
+          With advanced heart rate monitoring and fall detection, the Apple Watch
+          has set a benchmark in wearables.
+        </p>
+        <p>
+          <strong>Key Insight:</strong> Wearables account for
+          <span>60%</span> of fitness technology revenue, driving market
+          adoption.
+        </p>
+
+        <h3>2. Immersive Fitness Experiences</h3>
+        <p>
+          Virtual reality (VR) and augmented reality (AR) are reshaping how users
+          engage with fitness routines.
+        </p>
+        <h4>Example: Peloton Guide</h4>
+        <p>
+          Peloton’s AI-powered device offers personalized feedback for strength
+          training.
+        </p>
+        <p>
+          <strong>Actionable Insight:</strong> Companies focusing on immersive
+          experiences are capturing younger demographics.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Strategic Recommendations</h2>
+        <ol>
+          <li>
+            <strong>Leverage AI for Personalization:</strong> Develop platforms
+            that analyze user data for tailored fitness recommendations.
+          </li>
+          <li>
+            <strong>Invest in Ecosystems:</strong> Build partnerships to
+            integrate devices with health and fitness apps for holistic
+            solutions.
+          </li>
+          <li>
+            <strong>Focus on Community Engagement:</strong> Gamify fitness to
+            increase user retention and engagement.
+          </li>
+        </ol>
+      </section>
+
+      <section class="fade-in">
+        <h2>Conclusion</h2>
+        <p>
+          Fitness technology represents a paradigm shift in health management,
+          blending innovation with accessibility. Stakeholders investing today
+          will be at the forefront of the next wave of health-focused innovation.
+        </p>
+      </section>
+    </main>
+
+  <footer>
+    <p>
+      Discover more disruptive insights with <strong>Disruptive Capital</strong>.
+    </p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeInSections = document.querySelectorAll('.fade-in');
+      const revealSections = () => {
+        fadeInSections.forEach(section => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+          if (sectionTop < triggerPoint) {
+            section.classList.add('visible');
+          }
+        });
+      };
+      window.addEventListener('scroll', revealSections);
+      revealSections(); // Initial check
+    });
+
+    const ctx = document.getElementById('fitnessTechGraph').getContext('2d');
+    const fitnessTechGraph = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+        datasets: [{
+          label: 'Market Size (in billion USD)',
+          data: [4, 5, 6.2, 7.8, 9.5, 11.4, 13.2, 15],
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 2,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Year'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Market Size (in billion USD)'
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+  <script src="./components/Header.js"></script>
+</body>
+</html>

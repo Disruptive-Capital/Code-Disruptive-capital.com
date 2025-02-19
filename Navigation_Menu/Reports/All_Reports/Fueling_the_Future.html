@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quantum Computing Report</title>
+
+  <!-- Load Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../scripts.js"></script>
+
+  <!-- Main stylesheet + Google Fonts -->
+  <link rel="stylesheet" href="../styles.css" />
+ 
+
+  <style>
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #fff;
+      font-family: inherit;
+    }
+
+    /* Dark blue background + white text (original scheme) */
+    .start {
+      background-color: #002147;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      position: relative;
+      top: 0;
+    }
+
+    /*
+      We split the main title into two parts:
+      1) Big uppercase for the part before the colon
+      2) Smaller line for the part after the colon
+    */
+    .main-headline {
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    /* Large text for the first line */
+    .headline-part {
+      display: block;  /* Force it onto its own line */
+      font-size: 3rem; /* Big headline */
+    }
+
+    /* Smaller text for the second line */
+    .headline-desc {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 0.5rem;
+      text-transform: none; /* normal case */
+      font-style: normal;
+    }
+
+    /* Subtitle under the headline */
+    .start h2 {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 10px auto 0;
+      max-width: 800px;
+      color: #fff;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      font-family: 'Roboto', sans-serif; /* Body text in Roboto */
+    }
+
+    section {
+      margin: 40px 0;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: #002147;
+      margin-bottom: 15px;
+    }
+
+    section h3 {
+      font-size: 1.5rem;
+      color: #004080;
+      margin-bottom: 10px;
+    }
+
+    p span {
+      font-weight: bold;
+      color: #002147;
+    }
+
+    p strong {
+      font-weight: bold;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    /* Fade-in effect for sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      visibility: hidden;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    h4 {
+      margin-block-start: 1.33em;
+      margin-block-end: 1.33em;
+      font-weight: bold;
+      unicode-bidi: isolate;
+    }
+
+    /* 
+      Chart container with the same fixed heights you originally had.
+      It will fill up the container with the chart due to `maintainAspectRatio: false` in JS.
+    */
+    .chart-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 100px auto;
+      position: relative;
+      height: 400px; /* Original desktop height */
+      box-sizing: border-box;
+    }
+
+    .chart-container canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      main {
+        max-width: 90%;
+      }
+      .headline-part {
+        font-size: 2.5rem;
+      }
+      .headline-desc {
+        font-size: 1.2rem;
+      }
+      .start h2 {
+        font-size: 1rem;
+      }
+      /* Slightly smaller chart on tablets */
+      .chart-container {
+        height: 300px;
+        margin: 180px auto;
+
+      }
+    }
+
+    @media (max-width: 480px) {
+      .headline-part {
+        font-size: 2rem;
+      }
+      .headline-desc {
+        font-size: 1rem;
+      }
+      .start h2 {
+        font-size: 0.9rem;
+      }
+      /* Even smaller chart on phones */
+      .chart-container {
+        height: 250px;
+        margin: 80px auto 300px;
+
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--Header Component-->
+  <dc-header></dc-header>
+
+    <div class="start">
+      <h1 class="main-headline">
+        <span class="headline-part">Fueling the Future</span>
+        <span class="headline-desc">Opportunities in Green Hydrogen Production</span>
+      </h1>
+      <h2>Disruptive Capital Insight Report | November 2024</h2>
+    </div>
+    <main>
+      <section class="fade-in">
+        <h2>Executive Summary</h2>
+        <p>
+          Green hydrogen has emerged as a transformative force in the global push
+          toward net-zero emissions. Produced using renewable energy, this clean
+          fuel is poised to revolutionize energy systems, decarbonize heavy
+          industries, and reshape global transportation. With over
+          <span>$20 billion</span> invested in 2024, including initiatives like
+          Australia’s <span>$2 billion</span> Hydrogen Headstart program, the
+          momentum behind green hydrogen is undeniable.
+        </p>
+        <p>
+          This report delves into the rapidly evolving green hydrogen market,
+          highlighting its explosive growth trajectory, game-changing
+          applications, and strategic recommendations for investors and
+          policymakers.
+        </p>
+        <p>
+          <strong>Our Perspective:</strong> Green hydrogen is more than a clean
+          energy source—it is the foundation of a global energy transformation.
+          Stakeholders investing in this sector today will reap first-mover
+          advantages in one of the fastest-growing and most lucrative markets of
+          our time.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>The Market at a Glance: An Explosive Growth Trajectory</h2>
+        <p>
+          The global green hydrogen market is experiencing unprecedented growth,
+          surging from <span>$4.3 billion</span> in 2023 to a projected
+          <span>$42 billion</span> by 2030, at a staggering compound annual
+          growth rate (CAGR) of <span>39.5%</span>. This rapid expansion is
+          fueled by aggressive renewable energy integration, global
+          decarbonization targets, and electrification across traditionally
+          hard-to-abate industries.
+        </p>
+
+        <h3>Why It’s Exciting</h3>
+        <ul>
+          <li>
+            <strong>Scale of Opportunity:</strong> Green hydrogen bridges the
+            gap in energy systems, integrating surplus renewable energy into
+            industrial, transport, and storage applications.
+          </li>
+          <li>
+            <strong>Economic Potential:</strong> Early investments in green
+            hydrogen infrastructure and production are unlocking lucrative
+            export markets and transforming energy economies.
+          </li>
+          <li>
+            <strong>Environmental Impact:</strong> As a zero-emissions fuel,
+            green hydrogen addresses climate imperatives while enabling
+            industrial innovation.
+          </li>
+        </ul>
+
+        <p>
+          <strong>Key Insight:</strong> Green hydrogen is the "missing link" in
+          achieving a sustainable global energy ecosystem, offering both
+          environmental and economic returns.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Pillars of Green Hydrogen: A Transformative Energy Solution</h2>
+        <ol>
+          <li>
+            <h3>Renewable Energy Integration</h3>
+            <p>
+              Green hydrogen production relies on electrolysis powered by
+              renewable energy sources, such as wind, solar, and hydro. This
+              process converts surplus renewable electricity into storable
+              hydrogen fuel, ensuring that renewable energy can be utilized even
+              during periods of low demand.
+            </p>
+
+            <h4>Case Study</h4>
+            <p>
+              <strong>Germany’s REFHYNE project</strong>, the largest
+              electrolyzer in Europe, produces <span>1,300 tons</span> of green
+              hydrogen annually. This hydrogen is used in industrial and
+              transportation applications, showcasing the role of green hydrogen
+              as a bridge between renewable energy and practical use cases.
+            </p>
+
+            <p>
+              <strong>Strategic Opportunity:</strong> Nations with abundant
+              renewable energy resources, such as Australia, Morocco, and Chile,
+              are positioning themselves as global green hydrogen production
+              hubs.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="fade-in">
+        <h2>2. Decarbonizing Heavy Industries</h2>
+        <p>
+          Industries like steel, cement, and chemicals are some of the largest
+          carbon emitters, and direct electrification in these sectors is often
+          infeasible. Green hydrogen offers a viable alternative by replacing
+          fossil fuels in these energy-intensive processes.
+        </p>
+
+        <h3>Example</h3>
+        <p>
+          <strong>Sweden’s HYBRIT project</strong> has pioneered the use of
+          green hydrogen in steel production, achieving a <span>90%</span>
+          reduction in carbon emissions compared to traditional methods. This
+          breakthrough is a blueprint for global industrial decarbonization.
+        </p>
+
+        <p>
+          <strong>Why It Matters:</strong> Heavy industries account for nearly
+          <span>25%</span> of global emissions. Green hydrogen’s ability to
+          decarbonize these sectors represents a trillion-dollar opportunity.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>3. Transforming Transportation</h2>
+        <p>
+          While battery-electric vehicles dominate passenger transport, green
+          hydrogen is uniquely suited for heavy-duty and long-distance
+          applications, such as trucking, shipping, and aviation. Hydrogen-
+          powered fuel cells provide the energy density and refueling speed
+          necessary for these sectors.
+        </p>
+
+        <h3>Example</h3>
+        <p>
+          <strong>Toyota and Kenworth</strong> are piloting hydrogen fuel cell
+          trucks at the Port of Los Angeles, significantly reducing emissions in
+          one of the nation’s busiest freight corridors.
+        </p>
+
+        <p>
+          <strong>Key Insight:</strong> Hydrogen fuel cells are the future of
+          heavy transportation, complementing the shift toward battery-electric
+          solutions in consumer vehicles.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Regional Dynamics: The Global Race for Green Hydrogen Leadership</h2>
+
+        <h3>Europe: Sustainability and Industrial Innovation</h3>
+        <p>
+          Europe leads the global green hydrogen race, with <span>$8 billion</span>
+          invested in 2024. Countries like Germany and the Netherlands are
+          focusing on large-scale electrolyzers and industrial decarbonization.
+          The EU’s Green Deal further reinforces the region’s commitment to
+          sustainable energy.
+        </p>
+
+        <h3>Asia-Pacific: Production and Export Hub</h3>
+        <p>
+          The Asia-Pacific region invested <span>$7 billion</span> in 2024, led
+          by Australia’s Hydrogen Headstart program and Japan’s initiatives in
+          hydrogen-powered transport. Australia’s abundant solar and wind
+          resources are driving its ambition to become the world’s largest green
+          hydrogen exporter.
+        </p>
+
+        <h3>North America: Incentivizing Growth</h3>
+        <p>
+          North America invested <span>$4 billion</span> in 2024, with the U.S.
+          leveraging tax incentives to accelerate hydrogen production and Canada
+          focusing on export strategies. Partnerships with Europe and
+          Asia-Pacific underscore the region’s strategic role in the global
+          hydrogen economy.
+        </p>
+
+        <p>
+          <strong>Key Insight:</strong> Regional leaders are shaping the future
+          of energy geopolitics. Nations with the foresight to invest in green
+          hydrogen production and export infrastructure will secure long-term
+          economic and strategic advantages.
+        </p>
+      </section>
+
+      <!-- Chart: Green Hydrogen Plants by Country -->
+      <div class="chart-container">
+        <h2>Number of Green Hydrogen Plants by Country</h2>
+        <canvas id="hydrogenPlantsChart"></canvas>
+        <p class="description">
+          This chart shows the number of green hydrogen plants in various
+          countries, with Australia leading the global count.
+        </p>
+      </div>
+
+      <section class="fade-in">
+        <h2>Overcoming Barriers to Scale</h2>
+        <p>
+          Despite its promise, green hydrogen faces significant challenges that
+          must be addressed to achieve its full potential:
+        </p>
+
+        <ul>
+          <li>
+            <strong>High Production Costs:</strong> Green hydrogen costs
+            <span>$4–$6</span> per kilogram, compared to <span>$1–$2</span> for
+            gray hydrogen (produced from fossil fuels). Scaling production and
+            achieving economies of scale are critical to reducing costs.
+          </li>
+          <li>
+            <strong>Infrastructure Gaps:</strong> Limited pipelines, refueling
+            stations, and storage facilities restrict green hydrogen’s
+            scalability and adoption.
+          </li>
+          <li>
+            <strong>Policy Uncertainty:</strong> Inconsistent regulations across
+            regions hinder investment confidence, delaying infrastructure
+            development.
+          </li>
+        </ul>
+
+        <p>
+          <strong>Action Plan:</strong> Governments and private entities must
+          collaborate to address these barriers, ensuring green hydrogen becomes
+          a viable and competitive alternative to fossil fuels.
+        </p>
+      </section>
+
+      <!-- Chart: Global Hydrogen Storage Tanks Market Value (2021-2031) -->
+      <div class="chart-container">
+        <h2>Global Hydrogen Storage Tanks Market Value (2021-2031)</h2>
+        <canvas id="storageTankChart"></canvas>
+        <p class="description">
+          In 2023, the market value of hydrogen storage tanks worldwide stood at
+          188.5 million U.S. dollars. Figures are expected to increase
+          significantly over the next decade and expected to exceed one billion
+          U.S. dollars from 2030 onward.
+        </p>
+      </div>
+
+      <section class="fade-in">
+        <h2>Strategic Recommendations: Capturing the Green Hydrogen Opportunity</h2>
+        <ol>
+          <li>
+            <h3>Scale Production</h3>
+            <p>Prioritize investments in large-scale electrolyzers to achieve economies of scale.</p>
+            <p>Focus on regions with abundant renewable energy resources to reduce production costs.</p>
+          </li>
+          <li>
+            <h3>Leverage Export Opportunities</h3>
+            <p>Develop partnerships with energy-deficient nations to establish green hydrogen trade routes.</p>
+            <p>Countries like Australia, with its strong ties to Japan and South Korea, demonstrate the value of export-driven strategies.</p>
+          </li>
+          <li>
+            <h3>Foster Public-Private Collaboration</h3>
+            <p>Align corporate initiatives with government policies to accelerate infrastructure development.</p>
+            <p>The European Clean Hydrogen Alliance is a prime example of how coordinated efforts can drive growth.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="fade-in">
+        <h2>Conclusion: A Pathway to Energy Transformation</h2>
+        <p>
+          Green hydrogen is more than a renewable fuel—it is a cornerstone of the
+          global energy transition. Its ability to decarbonize industries,
+          integrate renewables, and revolutionize transportation makes it one of
+          the most exciting investment opportunities of the decade. With the
+          market projected to grow nearly tenfold by 2030, stakeholders who act
+          decisively today will shape the energy landscape of tomorrow.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Call to Action</h2>
+        <p>
+          Gain unparalleled insights into emerging trends and disruptive markets
+          with <strong>Disruptive Capital</strong>. Contact us to discover
+          tailored strategies and unlock the immense opportunities shaping the
+          future.
+        </p>
+        <p><strong>Take the first step—partner with us today.</strong></p>
+      </section>
+    </main>
+
+  <script>
+    // === Green Hydrogen Plants by Country ===
+    const hydrogenPlantsData = {
+      labels: [
+        "Australia", "Germany", "Spain", "Netherlands",
+        "United Kingdom", "United States", "Russia",
+        "Portugal", "China", "Chile"
+      ],
+      datasets: [{
+        label: "Number of Green Hydrogen Plants",
+        data: [96, 50, 50, 48, 46, 37, 36, 28, 26, 22],
+        backgroundColor: "rgba(0, 123, 255, 0.6)",
+        borderColor: "rgba(0, 123, 255, 1)",
+        borderWidth: 1
+      }]
+    };
+
+    const hydrogenPlantsConfig = {
+      type: "bar",
+      data: hydrogenPlantsData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, /* Fills the container’s fixed height */
+        plugins: {
+          legend: { display: false },
+          title: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    };
+
+    const hydrogenPlantsChart = new Chart(
+      document.getElementById("hydrogenPlantsChart"),
+      hydrogenPlantsConfig
+    );
+
+    // === Hydrogen Storage Tanks Market Value ===
+    const storageTankData = {
+      labels: [
+        "2021", "2022", "2023", "2024*", "2025",
+        "2026", "2027", "2028", "2029", "2030", "2031"
+      ],
+      datasets: [{
+        label: "Market Value (in million USD)",
+        data: [
+          113.4, 146.1, 188.5, 243.6, 315.6,
+          409.9, 533.9, 697.5, 914.5, 1203.8, 1591.6
+        ],
+        backgroundColor: "rgba(40, 167, 69, 0.6)",
+        borderColor: "rgba(40, 167, 69, 1)",
+        borderWidth: 1
+      }]
+    };
+
+    const storageTankConfig = {
+      type: "line",
+      data: storageTankData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, /* Fills the container’s fixed height */
+        plugins: {
+          legend: { display: true },
+          title: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: false }
+        }
+      }
+    };
+
+    const storageTankChart = new Chart(
+      document.getElementById("storageTankChart"),
+      storageTankConfig
+    );
+
+
+    // === Fade-in effect ===
+    document.addEventListener("DOMContentLoaded", () => {
+      const fadeInElements = document.querySelectorAll(".fade-in");
+
+      const handleScroll = () => {
+        fadeInElements.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          const isInViewport = rect.top < window.innerHeight && rect.bottom >= 0;
+
+          if (isInViewport) {
+            el.classList.add("visible");
+          }
+        });
+      };
+
+      // Listen to the scroll event
+      window.addEventListener("scroll", handleScroll);
+
+      // Initial check in case elements are already in view on load
+      handleScroll();
+    });
+  </script>
+
+  <script src="./components/Header.js"></script>
+</body>
+</html>

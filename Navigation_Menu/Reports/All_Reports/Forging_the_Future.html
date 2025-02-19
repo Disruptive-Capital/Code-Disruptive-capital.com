@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Computing Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../scripts.js"></script>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #fff;
+        font-family: inherit;
+      }
+  
+      /* Dark blue background + white text (original scheme) */
+      .start {
+        background-color: #002147;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        position: relative;
+        top: 0;
+      }
+  
+      /*
+        We split the main title into two parts:
+        1) Big uppercase for the part before the colon
+        2) Smaller line for the part after the colon
+      */
+      .main-headline {
+        font-family: 'Georgia', serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+        color: #fff;
+      }
+  
+      /* Large text for the first line */
+      .headline-part {
+        display: block;  /* Force it onto its own line */
+        font-size: 3rem; /* Big headline */
+      }
+  
+      /* Smaller text for the second line */
+      .headline-desc {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-top: 0.5rem;
+        text-transform: none; /* normal case */
+        font-style: normal;
+      }
+  
+      /* Subtitle under the headline */
+      .start h2 {
+        font-family: 'Georgia', serif;
+        font-size: 1.25rem;
+        font-weight: 400;
+        font-style: italic;
+        margin: 10px auto 0;
+        max-width: 800px;
+        color: #fff;
+      }
+  
+      main {
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        background: #fff;
+        font-family: 'Roboto', sans-serif; /* Body text in Roboto */
+      }
+  
+      section {
+        margin: 40px 0;
+      }
+  
+      section h2 {
+        font-size: 2rem;
+        color: #002147;
+        margin-bottom: 15px;
+      }
+  
+      section h3 {
+        font-size: 1.5rem;
+        color: #004080;
+        margin-bottom: 10px;
+      }
+  
+      p span {
+        font-weight: bold;
+        color: #002147;
+      }
+  
+      p strong {
+        font-weight: bold;
+      }
+  
+      .highlight {
+        font-weight: bold;
+        color: #007bff;
+      }
+  
+      /* Fade-in effect for sections */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        visibility: hidden;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+  
+      h4 {
+        margin-block-start: 1.33em;
+        margin-block-end: 1.33em;
+        font-weight: bold;
+        unicode-bidi: isolate;
+      }
+  
+      .chart-container {
+    /* Your existing rules... */
+        margin: 40px auto 20px; /* a bit of bottom margin so text won’t overlap */
+        position: relative;
+        height: 400px; 
+        box-sizing: border-box;
+      }
+  
+  
+      .chart-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+  
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        main {
+          max-width: 90%;
+        }
+        .headline-part {
+          font-size: 2.5rem;
+        }
+        .headline-desc {
+          font-size: 1.2rem;
+        }
+        .start h2 {
+          font-size: 1rem;
+        }
+        /* Slightly smaller chart on tablets */
+        .chart-container {
+          height: 300px;
+          margin: 40px auto 15px; /* keep some bottom space too */
+        }
+      }
+  
+      @media (max-width: 480px) {
+        .headline-part {
+          font-size: 2rem;
+        }
+        .headline-desc {
+          font-size: 1rem;
+        }
+        .start h2 {
+          font-size: 0.9rem;
+        }
+        /* Even smaller chart on phones */
+        .chart-container {
+          height: 250px;
+          margin: 40px auto 15px;
+        }
+      }
+    </style>
+</head>
+<body>
+    <!--Header Component-->
+    <dc-header></dc-header>
+    
+    <div class="start">
+        <h1 class="main-headline">
+          <span class="headline-part">Forging the Future</span>
+          <span class="headline-desc">Opportunities in Semiconductor Manufacturing</span>
+        </h1>
+        <h2>Disruptive Capital Insight Report | November 2024</h2>
+    </div>
+    <main>
+        <section class="fade-in">
+            <h2>Executive Summary</h2>
+            <p>Semiconductors are the lifeblood of modern technology, powering everything from smartphones and electric vehicles to artificial intelligence and clean energy systems. As global demand for advanced chips surges, semiconductor manufacturing has become a critical lever for economic growth and technological innovation.</p>
+            <p>In 2024, global semiconductor investments exceeded <span>$200 billion</span>, with established leaders like Taiwan, South Korea, and the United States expanding capacity and emerging players like India, Vietnam, and the Middle East stepping onto the global stage. Amid geopolitical shifts and supply chain challenges, stakeholders face an unprecedented opportunity to shape the next decade of this transformative sector.</p>
+            <p><strong>Our Perspective:</strong> Semiconductor manufacturing is not just a growth market—it is the keystone of global innovation. Early positioning in this sector will define economic and technological leaders for decades to come.</p>
+        </section>
+        
+        <section class="fade-in">
+            <h2>The Market at a Glance: A Trillion-Dollar Opportunity</h2>
+            <p>The semiconductor industry is on a trajectory to exceed <span>$1 trillion</span> by 2030, up from <span>$590 billion</span> in 2022. This remarkable growth reflects the critical role chips play in emerging technologies and global industries.</p>
+            
+            <h3>Key Drivers of Growth</h3>
+            <ul>
+                <li><strong>Artificial Intelligence (AI):</strong> Advanced chips are fueling breakthroughs in AI and machine learning, enabling the training of next-generation models like GPT-4 and beyond.</li>
+                <li><strong>Electric Vehicles (EVs):</strong> Semiconductor content in EVs is three times higher than in internal combustion vehicles, driving demand for specialized chips.</li>
+                <li><strong>Internet of Things (IoT):</strong> Ubiquitous connectivity across industrial and consumer devices is accelerating the need for efficient, low-power semiconductors.</li>
+            </ul>
+            <p><strong>Key Insight:</strong> This is a pivotal moment for the semiconductor industry. Growth is being driven not only by innovation but also by the urgent need for supply chain resilience and regional self-sufficiency.</p>
+        </section>
+
+        <canvas id="revenueChart" width="800" height="400"></canvas>
+        
+        <section class="fade-in">
+            <h2>The Drivers of Semiconductor Manufacturing: Innovation Meets Resilience</h2>
+            
+            <h3>1. Geopolitics and Supply Chain Resilience</h3>
+            <p>The global chip shortage during the pandemic exposed the vulnerabilities of concentrated production in East Asia, leading governments to prioritize domestic manufacturing to ensure security and stability.</p>
+            <h4>Case Study: U.S. CHIPS Act</h4>
+            <p>The U.S. CHIPS Act has allocated <span>$52 billion</span> to boost domestic chip production. Companies like Intel and TSMC are expanding operations in Arizona and Ohio, focusing on advanced node production to address national security concerns.</p>
+            <p><strong>Strategic Opportunity:</strong> Emerging hubs in India, Vietnam, and the Middle East are attracting significant investments as companies diversify production to mitigate geopolitical risks.</p>
+        
+            <h3>2. The AI and High-Performance Computing (HPC) Boom</h3>
+            <p>AI’s exponential growth is driving demand for semiconductors smaller than <span>5 nanometers (nm)</span>, essential for training and deploying advanced machine learning models. High-performance computing (HPC) systems rely heavily on these advanced nodes.</p>
+            <h4>Case Study: TSMC</h4>
+            <p>As the world’s largest contract chipmaker, TSMC is investing <span>$40 billion</span> in Arizona fabs to produce 3nm and 2nm chips, targeting AI and HPC applications. These chips are critical for powering the next generation of AI-driven technologies.</p>
+            <p><strong>Investor Insight:</strong> While advanced node production requires significant capital, it offers high-margin opportunities for early movers in this space.</p>
+        
+            <h3>3. Electric Vehicles and Clean Tech</h3>
+            <p>The transition to electric vehicles (EVs) has created a surge in demand for automotive-grade semiconductors. Chips now power everything from battery management systems to advanced driver-assistance systems (ADAS).</p>
+            <h4>Example: NXP Semiconductors</h4>
+            <p>NXP reported a <span>25%</span> revenue increase in 2024, driven by the rapid adoption of EVs and clean energy technologies. By 2030, automotive demand is expected to account for <span>20%</span> of the global semiconductor market.</p>
+            <p><strong>Key Insight:</strong> Automotive-focused semiconductor manufacturers are positioned to benefit from the dual tailwinds of clean tech adoption and electrification.</p>
+        </section>
+        
+        <section class="fade-in">
+            <h2>Regional Dynamics: The Shifting Landscape of Semiconductor Manufacturing</h2>
+            
+            <h3>United States: Leading in Innovation and Resilience</h3>
+            <p>With <span>$52 billion</span> in government incentives under the CHIPS Act, the U.S. is solidifying its position as a semiconductor leader. Companies like TSMC, Intel, and Samsung are focusing on advanced node production to secure both economic and technological leadership.</p>
+            
+            <h3>India: Emerging as a Global Hub</h3>
+            <p>India has attracted over <span>$14 billion</span> in semiconductor investments in 2024, including Micron Technology’s <span>$2.75 billion</span> fab in Gujarat and Tata Electronics’ <span>$11 billion</span> project in Dholera. Government incentives and skilled labor are positioning India as a major player in global chip production.</p>
+            
+            <h3>Middle East: Diversifying the Industry</h3>
+            <p>The UAE has launched a <span>$1 billion</span> semiconductor fund to establish itself as a key player in chip manufacturing. The region’s focus on innovation and diversification is creating a new hub for global semiconductor production.</p>
+            
+            <p><strong>Key Insight:</strong> Regional diversification is reshaping the semiconductor ecosystem. Nations investing in infrastructure, incentives, and skilled talent are poised to capture a significant share of the <span>$1 trillion</span> market.</p>
+        </section>
+        
+        <section class="fade-in">
+            <h2>Barriers to Scale: Challenges and Opportunities</h2>
+            <ul>
+                <li><strong>Capital Intensity:</strong> A single semiconductor fab can cost <span>$10–$15 billion</span> to build, with long payback periods.</li>
+                <li><strong>Talent Shortages:</strong> The global demand for skilled semiconductor workers exceeds supply, with a shortfall of <span>50,000</span> roles in 2024 alone.</li>
+                <li><strong>Geopolitical Tensions:</strong> U.S.-China technology disputes pose risks to supply chain stability and global markets.</li>
+            </ul>
+            <p><strong>Strategic Opportunity:</strong> Addressing these barriers through ecosystem partnerships, sustainability initiatives, and vertical integration will unlock long-term growth and resilience.</p>
+        </section>
+        
+        <section class="fade-in">
+            <h2>Strategic Recommendations: Capturing the Semiconductor Advantage</h2>
+            <ol>
+                <li>
+                    <h3>Build Ecosystem Partnerships</h3>
+                    <p>Collaborations between governments, corporates, and academia can mitigate risks and accelerate production. India’s partnerships with TSMC and Foxconn exemplify the power of public-private alliances.</p>
+                </li>
+                <li>
+                    <h3>Prioritize Sustainability</h3>
+                    <p>Chip manufacturing is highly resource-intensive. Companies that invest in green processes, such as water recycling and renewable energy, will gain regulatory and reputational advantages.</p>
+                </li>
+                <li>
+                    <h3>Embrace Vertical Integration</h3>
+                    <p>Integrating design and manufacturing reduces costs and ensures supply chain control. Companies like Samsung and Intel have demonstrated the competitive advantages of this approach.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="fade-in">
+            <h2>Conclusion: Shaping the Future of Technology</h2>
+            <p>Semiconductor manufacturing is the cornerstone of the global technology ecosystem. From enabling AI breakthroughs to driving clean energy transitions, this industry underpins the next wave of innovation. With the market projected to exceed <span>$1 trillion</span> by 2030, stakeholders who invest strategically today will shape the technological and economic landscape of tomorrow.</p>
+        </section>
+        
+
+    
+        
+         <section class="fade-in">
+            <h2>Call to Action</h2>
+            <p>Gain unparalleled insights into emerging trends and disruptive markets with <strong>Disruptive Capital</strong>. Contact us to discover tailored strategies and unlock the immense opportunities shaping the future.</p>
+            <p><strong>Take the first step—partner with us today.</strong></p>
+        </section>        
+    </main>
+
+    <script>
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        const years = [
+            1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 
+            2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 
+            2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025
+        ];
+        const revenue = [
+            33, 45, 49, 51, 55, 60, 77, 102, 144, 132, 137, 126, 149.4, 204, 139, 
+            141, 166, 213, 227, 247.7, 255.6, 248.6, 226.31, 298.32, 299.52, 291.56, 
+            305.58, 335.84, 335.17, 338.93, 412.22, 468.78, 412.31, 440.39, 555.89, 
+            574.08, 526.89, 611.23, 687.38
+        ];
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Revenue (Billion U.S. Dollars)',
+                    data: revenue,
+                    borderColor: '#007BFF',
+                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Revenue (Billion U.S. Dollars)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeInSections = document.querySelectorAll('.fade-in');
+    
+            const revealSections = () => {
+                fadeInSections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+    
+                    if (sectionTop < triggerPoint) {
+                        section.classList.add('visible');
+                    }
+                });
+            };
+    
+            // Check on page load and on scroll
+            window.addEventListener('scroll', revealSections);
+            revealSections(); // Initial check
+        });
+    </script>
+    <script src="./components/Header.js"></script>
+    
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+What this does, is that it will auto indent your code when you press enter. 
+It will also auto indent your code when you paste code into the editor.
+And to toggle it if it doesn't automatically, you have to press format document, 
+which is available at left click. 
+
+{
+    "editor.autoIndent": "full"
+  }

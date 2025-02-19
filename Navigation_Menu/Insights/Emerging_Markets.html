@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global VC Landscape</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="scripts.js"></script>
+    <title>Disruptive Capital</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      #special-container {
+        max-width: 1024px;
+        margin: 40px auto;
+        margin-top: 60px;
+        padding: 40px;
+        background: #ffffff;
+        border-radius: 1px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+      }
+
+      #rising-stars-section {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+      }
+
+      /* Fade-in class that will reset opacity and transform */
+      .fade-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+      /* General Styles */
+      body {
+        margin: 0;
+        font-family: "Times New Roman";
+        background-color: #ffffff; /* Light gray for a professional backdrop */
+        color: #1d1d1f; /* Subtle dark gray for text */
+        overflow-x: hidden;
+        line-height: 1.6; /* Improve readability */
+      }
+
+      /* Heading 1 Styles */
+      h1 {
+        font-size: 3.5rem; /* Large and bold for emphasis */
+        font-weight: 700;
+        color: #002147; /* McKinsey-style deep navy */
+        text-align: center;
+        margin: 40px 0;
+        letter-spacing: -0.02em; /* Slightly tighten the spacing */
+        line-height: 1.2;
+      }
+
+      /* Heading 2 Styles */
+      h2 {
+        font-size: 3rem; /* Secondary importance */
+        font-weight: 400px; /* Lighter for contrast */
+        color: #121f32; /* Slightly lighter navy for visual hierarchy */
+        text-align: center;
+        margin: 20px 0;
+        letter-spacing: 0; /* Balanced default spacing */
+      }
+
+      /* Heading 3 Styles */
+      h3 {
+        font-size: 1.75rem;
+        font-weight: 500;
+        color: #121f32; /* Even lighter navy */
+        margin: 20px 0;
+        text-align: center;
+      }
+      p1 {
+        font-size: 1.125rem; /* Slightly larger than default for legibility */
+        font-weight: 300; /* Light and airy */
+        color: #333333; /* Neutral gray for body text */
+        max-width: 800px; /* Limit width for readability */
+        margin: 40px auto; /* Center paragraphs */
+        text-align: justify; /* Professional alignment */
+      }
+
+      h4 {
+        font-size: 1.75rem;
+        font-weight: 200px;
+        color: #003366; /* Even lighter navy */
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      /* Paragraph Styles */
+      p {
+        font-size: 1.125rem; /* Slightly larger than default for legibility */
+        font-weight: 300; /* Light and airy */
+        color: #333333; /* Neutral gray for body text */
+        max-width: 800px; /* Limit width for readability */
+        margin: 25px auto; /* Center paragraphs */
+        text-align: justify; /* Professional alignment */
+      }
+
+      /* Highlighted Text */
+      .highlight {
+        font-weight: 600;
+        color: #000000; /* Accent blue for key text */
+      }
+
+      /* Map Styles */
+      .map-container {
+        width: 100%;
+        max-width: 1200px;
+        height: 80vh;
+        margin: 20px auto;
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .country {
+        fill: #d3d3d3;
+        stroke: #000000;
+        stroke-width: 0.5px;
+        transition: fill 0.3s;
+      }
+
+      .country[data-included="true"] {
+        fill: #121f32;
+      }
+
+      .country.highlighted {
+        fill: #1c3669; /* Highlighted color for clicked country */
+        animation: pulse 1.5s infinite;
+      }
+
+      /* Tooltip */
+      .tooltip {
+        position: absolute;
+        background: rgb(255, 255, 255);
+        padding: 10px;
+        border-radius: 0px;
+        box-shadow: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0s;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      /* Animation for Sections */
+      section {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 1s ease-out;
+        margin: 40px 0;
+      }
+
+      section.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Intro Title + Paragraph */
+      .rising-stars-intro {
+        max-width: 900px;
+        margin: 0 auto 50px auto;
+        text-align: center;
+      }
+      .rising-stars-intro h2 {
+        font-size: 2.5rem;
+        color: #121f32;
+        margin-bottom: 20px;
+      }
+      .rising-stars-intro p {
+        font-size: 1.2rem;
+        color: #3a3a3c;
+        line-height: 1.6;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Two Countries per Row */
+      .country-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two columns side by side */
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto 50px auto;
+      }
+
+      /* Single Country Card (Flag + Text) */
+      .country-flag {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 4px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .country-flag:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+      .country-flag img {
+        width: 100%;
+        max-width: 300px; /* Constrain flag width */
+        height: auto;
+        margin-bottom: 20px;
+        border-radius: 4px;
+      }
+      .country-flag h3 {
+        font-size: 1.4rem;
+        color: #121f32;
+        margin-bottom: 10px;
+      }
+      .country-flag p {
+        font-size: 1rem;
+        color: #333333;
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 30px 20px;
+        background: #f5f5f7;
+        border-top: 1px solid #e0e0e0;
+        font-size: 14px;
+        color: #6e6e73;
+      }
+      footer a {
+        color: #000;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: 500;
+      }
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsiveness */
+      @media (max-width: 768px) {
+        .country-row {
+          grid-template-columns: 1fr; /* Stacks countries vertically on smaller screens */
+        }
+        .country-flag img {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--Header Component-->
+    <div id="header-placeholder"></div>
+    <script>
+      fetch("/Navigation_Menu/Main_Header")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.text();
+        })
+        .then((data) => {
+          const headerPlaceholder =
+            document.getElementById("header-placeholder");
+          headerPlaceholder.innerHTML = data;
+
+          // Execute any scripts in the fetched HTML
+          const scripts = headerPlaceholder.getElementsByTagName("script");
+          for (let script of scripts) {
+            const newScript = document.createElement("script");
+            newScript.textContent = script.textContent;
+            document.body.appendChild(newScript);
+          }
+        })
+        .catch((error) => console.error("Error loading header:", error));
+    </script>
+
+    <!-- Animated Sections -->
+    <section class="dotted-bg">
+      <div class="rising-stars-intro">
+        <h2>Rising Stars in Venture Capital</h2>
+        <p1>
+          Discover the countries transforming the global VC landscape. These
+          rising stars are home to booming industries and skyrocketing
+          investment opportunities, shaping the future of innovation and
+          entrepreneurship.
+        </p1>
+      </div>
+
+      <!-- Brazil + Indonesia -->
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/Brazil.jpg" alt="Brazil Flag" />
+          <h3>Brazil</h3>
+          <p><strong>Total VC Investment (2023):</strong> $2.5 billion.</p>
+          <p>
+            <strong>Main Sectors:</strong> Fintech, e-commerce (Nubank: $500
+            million).
+          </p>
+          <p>
+            <strong>Growth:</strong> Brazil’s VC funding has tripled since 2018,
+            driven by a young digital-first population and increasing financial
+            inclusion.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/Indonesia.jpg" alt="Indonesia Flag" />
+          <h3>Indonesia</h3>
+          <p><strong>Total VC Investment (2023):</strong> $1.5 billion.</p>
+          <p>
+            <strong>Main Sectors:</strong> E-commerce, fintech, ride-hailing
+            (GoTo: $400 million).
+          </p>
+          <p>
+            <strong>Growth:</strong> Indonesia has seen consistent VC growth of
+            20% annually, fueled by a rapidly urbanizing population and mobile
+            penetration.
+          </p>
+        </div>
+      </div>
+
+      <!-- Nigeria + Vietnam -->
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/NIgera.png" alt="Nigeria Flag" />
+          <h3>Nigeria</h3>
+          <p><strong>Total VC Investment (2023):</strong> $1.8 billion.</p>
+          <p>
+            <strong>Main Sectors:</strong> Fintech, mobile money (Flutterwave:
+            $250 million).
+          </p>
+          <p>
+            <strong>Growth:</strong> Nigeria’s tech sector has grown by 30%
+            annually, making it Africa’s largest VC hub.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/Vietnam.jpg" alt="Vietnam Flag" />
+          <h3>Vietnam</h3>
+          <p><strong>Total VC Investment (2023):</strong> $1.2 billion.</p>
+          <p><strong>Main Sectors:</strong> Fintech, e-commerce, edtech.</p>
+          <p>
+            <strong>Growth:</strong> Government reforms and incentives have
+            driven 25% annual growth in VC funding since 2019.
+          </p>
+        </div>
+      </div>
+
+      <!-- Kenya + Mexico -->
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/Kenya.jpg" alt="Kenya Flag" />
+          <h3>Kenya</h3>
+          <p><strong>Total VC Investment (2023):</strong> $1 billion.</p>
+          <p>
+            <strong>Main Sectors:</strong> Agritech, fintech (M-Pesa leading).
+          </p>
+          <p>
+            <strong>Growth:</strong> Kenya’s VC market has expanded by over 30%
+            annually, earning it the nickname "Silicon Savannah."
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/Mexico.jpg" alt="Mexico Flag" />
+          <h3>Mexico</h3>
+          <p><strong>Total VC Investment (2023):</strong> $900 million.</p>
+          <p>
+            <strong>Main Sectors:</strong> Fintech, logistics (Mexico City: $600
+            million).
+          </p>
+          <p>
+            <strong>Growth:</strong> Mexico’s VC funding has doubled since 2019
+            thanks to trade agreements and proximity to the U.S.
+          </p>
+        </div>
+      </div>
+
+      <!-- Egypt + South Africa -->
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/Egypt.jpg" alt="Egypt Flag" />
+          <h3>Egypt</h3>
+          <p><strong>Total VC Investment (2023):</strong> $800 million.</p>
+          <p>
+            <strong>Main Sectors:</strong> E-commerce, health tech, fintech.
+          </p>
+          <p>
+            <strong>Growth:</strong> Egypt’s VC activity has grown by 40%
+            annually, driven by its youthful population and strategic location.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img
+            src="All Flag Pictures/South_Africa.png"
+            alt="South Africa Flag"
+          />
+          <h3>South Africa</h3>
+          <p><strong>Total VC Investment (2023):</strong> $750 million.</p>
+          <p>
+            <strong>Main Sectors:</strong> Fintech, renewable energy, health
+            tech.
+          </p>
+          <p>
+            <strong>Growth:</strong> South Africa’s startup ecosystem has grown
+            15% annually, with Cape Town leading innovation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Colombia + Bangladesh -->
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/Colombia.jpg" alt="Colombia Flag" />
+          <h3>Colombia</h3>
+          <p><strong>Total VC Investment (2023):</strong> $700 million.</p>
+          <p><strong>Main Sectors:</strong> Fintech, agtech.</p>
+          <p>
+            <strong>Growth:</strong> VC activity in Colombia has risen by 30%
+            annually, supported by government incentives.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/Bangladesh.jpg" alt="Bangladesh Flag" />
+          <h3>Bangladesh</h3>
+          <p><strong>Total VC Investment (2023):</strong> $650 million.</p>
+          <p><strong>Main Sectors:</strong> E-commerce, logistics.</p>
+          <p>
+            <strong>Growth:</strong> VC funding in Bangladesh has tripled since
+            2019, driven by rapid urbanization and digital adoption.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2024 Disruptive Capital. All Rights Reserved.</p>
+      <p>
+        Site Design by
+        <a
+          href="https://www.linkedin.com/in/safiyahs"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Safiyah Sheikh</a
+        >
+      </p>
+      <a href="terms.html">Terms and Conditions</a> |
+      <a href="cookie.html">Cookie Policy</a>
+    </footer>
+    <script>
+      // Scroll Animation
+      document.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll("section");
+        sections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+
+          if (sectionTop < triggerPoint) {
+            section.classList.add("active");
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const section = document.getElementById("rising-stars-section");
+        if (section) {
+          section.classList.add("fade-in");
+        }
+      });
+    </script>
+  </body>
+</html>

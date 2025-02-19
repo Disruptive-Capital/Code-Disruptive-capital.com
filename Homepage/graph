@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Playfair Display", serif;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      h1 {
+        margin: 10px 0;
+        font-size: 1.5rem;
+        color: #000000;
+      }
+
+      .container {
+        display: flex;
+        gap: 20px;
+      }
+
+      svg {
+        width: 600px;
+        height: 500px;
+      }
+
+      .bar {
+        fill: #ff9800;
+        transition: fill 0.3s, transform 0.2s;
+        cursor: pointer;
+      }
+
+      .bar:hover {
+        fill: #ff5722;
+        transform: scale(1.02);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Biggest GDP Growth 2017 by Greatest Economies</h1>
+    <div class="container">
+      <svg id="chart"></svg>
+      <canvas id="details-chart" width="400" height="300"></canvas>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const data = [
+          { country: "China", growth: 6.8 },
+          { country: "India", growth: 6.4 },
+          { country: "Spain", growth: 3.1 },
+          { country: "South Korea", growth: 3.1 },
+          { country: "Australia", growth: 2.8 },
+          { country: "Canada", growth: 2.7 },
+          { country: "Germany", growth: 2.5 },
+          { country: "U.S", growth: 2.3 },
+          { country: "Mexico", growth: 2.1 },
+          { country: "France", growth: 1.9 },
+          { country: "United Kingdom", growth: 1.7 },
+          { country: "Japan", growth: 1.7 },
+          { country: "Italy", growth: 1.5 },
+          { country: "Russia", growth: 1.5 },
+          { country: "Brazil", growth: 1.0 }
+        ];
+
+        const margin = { top: 20, right: 50, bottom: 40, left: 100 };
+        const width = 600 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        const svg = d3.select("#chart")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const xScale = d3.scaleLinear().domain([0, d3.max(data, d => d.growth)]).range([0, width]);
+        const yScale = d3.scaleBand().domain(data.map(d => d.country)).range([0, height]).padding(0.2);
+
+        svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(xScale).ticks(5).tickFormat(d => `${d}%`));
+        svg.append("g").call(d3.axisLeft(yScale));
+
+        svg.selectAll(".bar")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("class", "bar")
+          .attr("y", d => yScale(d.country))
+          .attr("height", yScale.bandwidth())
+          .attr("x", 0)
+          .attr("width", d => xScale(d.growth));
+
+        let chart;
+        function showDetails(country) {
+          if (chart) chart.destroy();
+
+          const ctx = document.getElementById("details-chart").getContext("2d");
+          const history = {
+            Brazil: [7.5, 4.0, 1.9, 3.0, 0.5, -3.5, -3.5, 1.0, 2.5]
+          };
+          const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018];
+
+          chart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: years,
+              datasets: [{
+                label: `${country} GDP Growth`,
+                data: history[country] || new Array(years.length).fill(0),
+                backgroundColor: "steelblue"
+              }]
+            },
+            options: {
+              responsive: false,
+              scales: {
+                y: { beginAtZero: true }
+              }
+            }
+          });
+        }
+
+        svg.selectAll(".bar").on("click", function (event, d) {
+          showDetails(d.country);
+        });
+      });
+    </script>
+  </body>
+</html>

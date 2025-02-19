@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="/Navigation_Menu/Logos/White_DC_Logo.png"
+      type="image/png"
+    />
+    <title>Disruptive Capital</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(141, 141, 141, 0.136);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        z-index: 1000;
+        padding: 30px 20px;
+        transition: background-color 0.7s ease;
+      }
+
+      .header:hover {
+        background: #ffffff;
+        color: white;
+      }
+
+      .menu-icon {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 20;
+        cursor: pointer;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center; /* Ensures both images are aligned horizontally */
+        gap: 10px; /* Adds space between logo image and text logo */
+      }
+
+      .logo-image {
+        width: 50px; /* Adjust as needed */
+        height: auto;
+        display: flex;
+      }
+
+      .logo a {
+        text-decoration: none;
+        color: black;
+      }
+
+      .logo:hover {
+        color: #121f32;
+      }
+
+      .logo-image {
+        width: 40px; /* Keep the width for the first image */
+        height: auto;
+        display: block;
+        margin-right: 10px;
+      }
+
+      .text-logo {
+        width: 300px; /* Adjust as needed */
+        height: auto;
+        display: block;
+        filter: brightness(1.2); /* Optional: Adjust brightness */
+      }
+
+      .nav a {
+        margin: 10px 15px;
+        text-decoration: none;
+        color: #000000;
+        font-size: 1.3rem; /* Increased font size */
+        font-weight: 400;
+        position: relative;
+        display: inline-block;
+        transition: color 0.3s ease;
+      }
+
+      .nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        width: 0;
+        height: 2px;
+        background-color: #000000;
+        transition: width 0.3s ease-in-out;
+      }
+
+      .nav a:hover {
+        color: #000000;
+      }
+
+      .nav a:hover::after {
+        width: 100%;
+      }
+
+      .dropdown-container {
+        position: relative;
+        margin: 0 15px;
+        display: inline-block;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 2000;
+        min-width: 270px;
+        padding: 10px;
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 10px 15px;
+        color: #333;
+        text-decoration: none;
+        border-bottom: 1px solid #ddd;
+        font-size: 1.2rem; /* Increased font size */
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #f0f0f0;
+        color: #121f32;
+      }
+      body {
+        padding-top: 115px; /* Adjust this value as needed */
+      }
+
+      .dropdown:hover + .dropdown-menu,
+      .dropdown-container:hover .dropdown-menu {
+        display: block;
+      }
+
+      @media screen and (max-width: 768px) {
+        body {
+          padding-top: 80px; /* Adjust this value to reduce the gap on mobile view */
+        }
+        .nav {
+          display: none;
+          flex-direction: column;
+          gap: 10px;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background: white;
+          text-align: center;
+          padding: 15px 0;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav a {
+          display: block;
+          padding: 10px;
+          font-size: 1.2rem;
+        }
+
+        .nav.active {
+          display: flex;
+        }
+
+        .dropdown-menu {
+          position: static;
+          display: none;
+          width: 100%;
+        }
+
+        .dropdown-container:hover .dropdown-menu,
+        .dropdown-container:focus-within .dropdown-menu {
+          display: block;
+        }
+
+        .logo-image {
+          width: 30px;
+        }
+
+        .text-logo {
+          width: 230px;
+        }
+        .menu-icon {
+          position: fixed;
+          top: 35px;
+          right: 15px;
+          z-index: 1000;
+          width: 25px;
+          height: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          cursor: pointer;
+        }
+
+        .menu-icon div {
+          width: 100%;
+          height: 2px;
+          background-color: black;
+          border-radius: 2px;
+          transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-icon.active div:nth-child(1) {
+          transform: translateY(9px) rotate(45deg); /* Adjusted translateY value */
+          transform-origin: center;
+        }
+
+        .menu-icon.active div:nth-child(2) {
+          opacity: 0;
+        }
+
+        .menu-icon.active div:nth-child(3) {
+          transform: translateY(-9px) rotate(-45deg); /* Adjusted translateY value */
+          transform-origin: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="logo">
+        <a href="/Homepage/Index.html">
+          <img
+            src="/Navigation_Menu/Logos/White_DC_Logo.png"
+            alt="Disruptive Capital Logo"
+            class="logo-image"
+          />
+        </a>
+        <img
+          src="/Navigation_Menu/Logos/Plain_Black_Letters.png"
+          alt="Disruptive Capital Text Logo"
+          class="text-logo"
+        />
+      </nav>
+
+      <div class="menu-icon" id="menu-icon" onclick="toggleMenu(this)">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <nav class="nav" id="nav-menu">
+        <a href="/Homepage/Index.html">Home</a>
+        <a href="/Navigation_Menu/Reports/Reports_Archive.html">Reports</a>
+        <div class="dropdown-container">
+          <a href="./reports/index.html" class="dropdown">Insights</a>
+          <div class="dropdown-menu">
+            <a href="/Navigation_Menu/Insights/Emerging_Markets.html">
+              Emerging Markets</a
+            >
+            <a href="/Navigation_Menu/Insights/Established_Markets.html">
+              Established Markets</a
+            >
+            <a href="/Navigation_Menu/Insights/Market_Assessment.html">Market Assessment</a>
+          </div>
+        </div>
+        <a href="/Navigation_Menu/About_Us/About_Us_Index.html">About Us</a>
+        <a href="/Navigation_Menu/Contact/index.html">Contact</a>
+      </nav>
+    </header>
+    <script>
+      function toggleMenu(icon) {
+        const nav = document.getElementById("nav-menu");
+        nav.classList.toggle("active");
+        icon.classList.toggle("active"); // This adds animation to the icon
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quantum Computing Report</title>
+
+  <!-- Chart.js + your scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../scripts.js"></script>
+
+  <!-- Main stylesheet + Google Fonts -->
+  <link rel="stylesheet" href="../styles.css" />
+
+
+  <style>
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #fff;
+      font-family: inherit;
+    }
+
+    /* Dark blue background + white text (original scheme) */
+    .start {
+      background-color: #002147;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      position: relative;
+      top: 0;
+    }
+
+    .main-headline {
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      color: #fff;
+    }
+    /* Large text for the first line */
+    .headline-part {
+      display: block;  /* Force it onto its own line */
+      font-size: 3rem; /* Big headline on desktop */
+    }
+    /* Smaller text for the second line */
+    .headline-desc {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 0.5rem;
+      text-transform: none;
+      font-style: normal;
+    }
+
+    .start h2 {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 10px auto 0;
+      max-width: 800px;
+      color: #fff;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      font-family: 'Roboto', sans-serif; /* Body text in Roboto */
+    }
+
+    section {
+      margin: 40px 0;
+    }
+    section h2 {
+      font-size: 2rem;
+      color: #002147;
+      margin-bottom: 15px;
+    }
+    section h3 {
+      font-size: 1.5rem;
+      color: #004080;
+      margin-bottom: 10px;
+    }
+
+    p span {
+      font-weight: bold;
+      color: #002147;
+    }
+    p strong {
+      font-weight: bold;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    /* Fade-in effect for sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      visibility: hidden;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    h4 {
+      margin-block-start: 1.33em;
+      margin-block-end: 1.33em;
+      font-weight: bold;
+      unicode-bidi: isolate;
+    }
+
+    /*
+      Chart container:
+      - 400px tall on desktop,
+      - 300px tall on tablets,
+      - 250px tall on phones.
+      - Extra bottom margin so text won’t overlap on mobile.
+    */
+    .chart-container {
+      margin: 40px auto 40px; /* bigger bottom margin to avoid overlap */
+      position: relative;
+      height: 400px; 
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /*
+      If the next element is <section> or <p>, force more top margin
+      so there's ample space below the chart on smaller screens.
+    */
+    .chart-container + section,
+    .chart-container + p {
+      margin-top: 60px !important;
+    }
+
+    .chart-container canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      main {
+        max-width: 90%;
+      }
+      .headline-part {
+        font-size: 2.5rem;
+      }
+      .headline-desc {
+        font-size: 1.2rem;
+      }
+      .start h2 {
+        font-size: 1rem;
+      }
+      .chart-container {
+        height: 300px; 
+        margin: 40px auto 120px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .headline-part {
+        font-size: 2rem;
+      }
+      .headline-desc {
+        font-size: 1rem;
+      }
+      .start h2 {
+        font-size: 0.9rem;
+      }
+      section h2 {
+        font-size: 1.8rem; 
+      }
+      .chart-container {
+        height: 250px; 
+        margin: 40px auto 150px; 
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--Header Component-->
+  <dc-header></dc-header>
+  
+  <div class="start">
+      <h1 class="main-headline">
+        <span class="headline-part">Engineering Life</span>
+        <span class="headline-desc">Opportunities in Synthetic Biology</span>
+      </h1>
+      <h2>Disruptive Capital Insight Report | November 2024</h2>
+    </div>
+    <main>
+      <section class="fade-in">
+        <h2>Executive Summary</h2>
+        <p>
+          Synthetic biology is reshaping the future of industries by engineering
+          biological systems to create innovative products, treat complex
+          diseases, and tackle global challenges. This transformative field is
+          unlocking new possibilities in sustainable materials, alternative
+          proteins, biofuels, and personalized medicine.
+        </p>
+        <p>
+          In 2024, synthetic biology startups attracted over
+          <span>$2 billion</span> in funding, with the global market projected
+          to grow from <span>$11 billion</span> in 2023 to <span>$40 billion</span>
+          by 2030, at a compound annual growth rate (CAGR) of
+          <span>20.5%</span>. From lab-grown meat to biodegradable plastics, the
+          sector is moving from niche applications to mainstream adoption,
+          offering immense opportunities for investors and corporates.
+        </p>
+        <p>
+          <strong>Our Perspective:</strong> Synthetic biology represents a
+          paradigm shift in healthcare, food production, and manufacturing.
+          Stakeholders investing strategically today will shape the future of
+          industries built on biology-based innovation.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>The Market at a Glance: Transformative Growth</h2>
+        <p>
+          The global synthetic biology market is projected to reach
+          <span>$40 billion</span> by 2030, driven by advancements in gene
+          editing, bio-manufacturing, and automation. With applications spanning
+          healthcare, agriculture, and materials, synthetic biology is driving
+          innovation across key sectors.
+        </p>
+        <h3>Why It’s Exciting</h3>
+        <ul>
+          <li>
+            <strong>Diverse Applications:</strong> From curing genetic disorders
+            to creating renewable energy sources, synthetic biology redefines
+            possibilities across industries.
+          </li>
+          <li>
+            <strong>Scalable Potential:</strong> Investments in bio-manufacturing
+            and automation are making high-impact solutions more affordable and
+            accessible.
+          </li>
+          <li>
+            <strong>Market Expansion:</strong> The rapid growth of the market
+            reflects increasing adoption and breakthroughs in technology.
+          </li>
+        </ul>
+        <p>
+          <strong>Key Insight:</strong> Synthetic biology is not just
+          revolutionizing industries—it’s reimagining how we solve some of the
+          world’s most pressing problems.
+        </p>
+      </section>
+
+      <div class="chart-container">
+        <h2>Synthetic Biology Funding and Market Growth</h2>
+        <canvas id="fundingChart"></canvas>
+      </div>
+
+      <section class="fade-in">
+        <h2>The Pillars of Synthetic Biology</h2>
+
+        <h3>1. Alternative Proteins: Redefining Food Production</h3>
+        <p>
+          Synthetic biology is at the forefront of sustainable food innovation,
+          enabling the creation of lab-grown meat, plant-based proteins, and
+          microbial fermentation systems. These solutions reduce resource
+          consumption and environmental impact.
+        </p>
+        <h4>Example: Upside Foods</h4>
+        <p>
+          Upside Foods became the first company to gain regulatory approval for
+          cultivated chicken in the U.S. Its bioreactors can produce
+          <span>50,000 pounds</span> of meat annually, reducing land and water
+          use by over <span>90%</span>.
+        </p>
+        <p>
+          <strong>Market Outlook:</strong> The alternative protein market is
+          projected to reach <span>$290 billion</span> by 2035, with synthetic
+          biology driving cost reductions and scalability.
+        </p>
+
+        <h3>2. Bioplastics and Sustainable Materials</h3>
+        <p>
+          Synthetic biology is replacing petrochemical-based plastics with
+          bioengineered materials, reducing waste and emissions. Biofabricated
+          materials are being adopted across industries, from electronics to
+          textiles.
+        </p>
+        <h4>Case Study: Zymergen</h4>
+        <p>
+          Zymergen’s biofabricated materials are helping electronics
+          manufacturers create sustainable components, cutting reliance on fossil
+          fuels and decreasing environmental impact.
+        </p>
+        <p>
+          <strong>Key Insight:</strong> Investors should focus on startups
+          scaling bio-manufacturing processes for materials like bio-nylon and
+          bio-polyethylene, as these are critical to reducing plastic waste
+          globally.
+        </p>
+
+        <h3>3. Personalized Medicine and Gene Therapy</h3>
+        <p>
+          The advancements in gene editing and synthetic biology are paving the
+          way for precision medicine, enabling targeted therapies and cures for
+          previously untreatable genetic disorders.
+        </p>
+        <h4>Example: Editas Medicine</h4>
+        <p>
+          Editas is using CRISPR-based therapies to treat inherited retinal
+          diseases, offering a potential one-time cure for blindness. Such
+          breakthroughs demonstrate the profound potential of synthetic biology
+          in healthcare.
+        </p>
+        <p>
+          <strong>Market Outlook:</strong> The gene therapy market is expected to
+          grow to <span>$20 billion</span> by 2027, driven by innovations in
+          synthetic biology.
+        </p>
+
+        <h3>4. Biofuels: Powering a Sustainable Future</h3>
+        <p>
+          Synthetic biology is revolutionizing the energy sector by creating
+          biofuels from engineered microbes, providing a low-carbon alternative
+          to fossil fuels.
+        </p>
+        <h4>Example: Amyris</h4>
+        <p>
+          Amyris developed a microbial fermentation process to produce renewable
+          diesel, reducing greenhouse gas emissions by up to <span>80%</span>.
+          This innovation is paving the way for a cleaner energy economy.
+        </p>
+        <p>
+          <strong>Market Potential:</strong> The biofuels market is projected to
+          grow to <span>$300 billion</span> by 2030, with synthetic biology
+          reducing costs and improving efficiency.
+        </p>
+      </section>
+
+      <div class="chart-container">
+        <h2>Revenue of Leading Public Synthetic Biology Companies</h2>
+        <p class="description">
+          In 2022, Amyris reported around 270 million U.S. dollars in total
+          revenue, while Twist Bioscience reported around 204 million U.S.
+          dollars in total revenue. This statistic illustrates the total revenue
+          of leading public synthetic biology companies worldwide in 2022, in
+          million U.S. dollars.
+        </p>
+        <canvas id="revenueChart"></canvas>
+      </div>
+
+      <section class="fade-in">
+        <br><br><br><br><br>
+        <h2>Regional Dynamics: Leaders in Synthetic Biology</h2>
+
+        <h3>United States: Driving Innovation</h3>
+        <p>
+          <strong>Investment:</strong> Over <span>$1.2 billion</span> in 2024,
+          led by Silicon Valley and Boston biotech hubs.
+        </p>
+        <p><strong>Key Players:</strong> Ginkgo Bioworks, Amyris, Twist Bioscience.</p>
+
+        <h3>Europe: Sustainability-Focused Growth</h3>
+        <p>
+          <strong>Initiative:</strong> The EU’s Horizon Europe program allocated
+          <span>€500 million</span> to synthetic biology projects targeting
+          sustainable materials and biofuels.
+        </p>
+
+        <h3>Asia-Pacific: Agricultural Advancements</h3>
+        <p>
+          <strong>Focus:</strong> Biofertilizers and pest-resistant crops are key
+          areas of investment in China and India, with significant government
+          support.
+        </p>
+        <p>
+          <strong>Key Insight:</strong> Regional ecosystems are shaping the
+          future of synthetic biology, with each geography focusing on its
+          strengths, from advanced healthcare in the U.S. to agricultural
+          innovation in Asia.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Barriers to Scale: Challenges and Opportunities</h2>
+        <ul>
+          <li>
+            <strong>High R&D Costs:</strong> Scaling synthetic biology processes
+            requires significant upfront investment.
+          </li>
+          <li>
+            <strong>Regulatory Complexity:</strong> Approvals for bioengineered
+            products are region-specific and often lengthy.
+          </li>
+          <li>
+            <strong>Public Perception:</strong> Concerns about genetically
+            modified organisms (GMOs) present hurdles to widespread consumer
+            adoption.
+          </li>
+        </ul>
+        <p>
+          <strong>Strategic Opportunity:</strong> Addressing these challenges
+          through public education, regulatory streamlining, and production
+          scale-up will unlock growth potential.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Strategic Recommendations: Unlocking Synthetic Biology’s Promise</h2>
+        <ol>
+          <li>
+            <h3>Scale Biomanufacturing Capacity</h3>
+            <p>Invest in large-scale bioreactors to reduce production costs and increase efficiency.</p>
+            <p>Prioritize partnerships that integrate scalable processes into industrial supply chains.</p>
+          </li>
+          <li>
+            <h3>Focus on High-Value Applications</h3>
+            <p>Target markets with immediate ROI, such as alternative proteins and gene therapies.</p>
+            <p>Continue funding R&D for longer-term applications like biofuels and advanced materials.</p>
+          </li>
+          <li>
+            <h3>Build Public Trust</h3>
+            <p>Implement transparent communication strategies to address consumer concerns and highlight the benefits of synthetic biology.</p>
+            <p>Engage with policymakers to establish clear, supportive regulatory frameworks.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="fade-in">
+        <h2>Conclusion: Shaping the Future of Innovation</h2>
+        <p>
+          Synthetic biology is redefining industries by engineering solutions for
+          sustainability, healthcare, and manufacturing. As the sector matures,
+          stakeholders who invest strategically will lead the next wave of
+          biology-based innovation.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Call to Action</h2>
+        <p>
+          Gain unparalleled insights into emerging trends and disruptive markets
+          with <strong>Disruptive Capital</strong>. Contact us to discover
+          tailored strategies and unlock the immense opportunities shaping the
+          future.
+        </p>
+        <p><strong>Take the first step—partner with us today.</strong></p>
+      </section>
+    </main>
+
+  <script>
+    // Funding and Market Growth Chart
+    const fundingCtx = document.getElementById('fundingChart').getContext('2d');
+    new Chart(fundingCtx, {
+      type: 'line',
+      data: {
+        labels: ['2020', '2022', '2023', '2031*'],
+        datasets: [{
+          label: 'Market Growth (in Billion $)',
+          data: [7.8, 10.3, 14.18, 87.27],
+          backgroundColor: 'rgba(0, 123, 255, 0.2)',
+          borderColor: 'rgba(0, 123, 255, 1)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(0, 123, 255, 1)',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false }
+          },
+          y: {
+            ticks: { beginAtZero: true }
+          }
+        }
+      }
+    });
+
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+      type: 'bar',
+      data: {
+        labels: [
+          'Ginkgo Bioworks',
+          'Amyris',
+          'Twist Bioscience',
+          'Codexis',
+          'Precigen'
+        ],
+        datasets: [{
+          label: 'Revenue (in Million $)',
+          data: [477.7, 269.8, 203.6, 138.6, 26.9],
+          backgroundColor: [
+            '#ff6384',
+            '#36a2eb',
+            '#ffce56',
+            '#4bc0c0',
+            '#9966ff'
+          ],
+          borderColor: [
+            '#ff6384',
+            '#36a2eb',
+            '#ffce56',
+            '#4bc0c0',
+            '#9966ff'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false }
+          },
+          y: {
+            ticks: { beginAtZero: true }
+          }
+        }
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeInSections = document.querySelectorAll('.fade-in');
+
+      const revealSections = () => {
+        fadeInSections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+
+          if (sectionTop < triggerPoint) {
+            section.classList.add('visible');
+          }
+        });
+      };
+
+      // Check on page load and on scroll
+      window.addEventListener('scroll', revealSections);
+      revealSections(); // Initial check
+    });
+  </script>
+
+  <script src="./components/Header.js"></script>
+</body>
+</html>

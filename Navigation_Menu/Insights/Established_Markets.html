@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global VC Landscape</title>
+
+    <!-- D3 + Google Fonts -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" />
+
+    <title>Disruptive Capital</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./scripts.js" defer></script>
+
+    <style>
+      /* ========== GENERAL STYLES ========== */
+      body {
+        margin: 0;
+        font-family: "Times New Roman";
+        background-color: #ffffff;
+        color: #1d1d1f;
+        line-height: 1.6;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #002147;
+        text-align: center;
+        margin: 40px 0;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+      h2 {
+        font-size: 3rem;
+        font-weight: 400px;
+        color: #121f32;
+        text-align: center;
+        margin: 20px 0;
+        letter-spacing: 0;
+      }
+      h3 {
+        font-size: 1.75rem;
+        font-weight: 500;
+        color: #121f32;
+        margin: 20px 0;
+        text-align: center;
+      }
+      h4 {
+        font-size: 1.75rem;
+        font-weight: 200px;
+        color: #003366;
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      p {
+        font-size: 1.125rem;
+        font-weight: 300;
+        color: #333333;
+        max-width: 800px;
+        margin: 20px auto;
+        text-align: justify;
+      }
+      .highlight {
+        font-weight: 600;
+        color: #000000;
+      }
+
+      /* ========== HEADER & NAV ========== */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        padding: 20px 40px;
+        border-bottom: 1px solid #e5e5e5;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo img {
+        height: 40px;
+        width: auto;
+      }
+      .menu-icon {
+        display: none; /* Shown on mobile if desired */
+      }
+      .nav {
+        display: flex;
+        gap: 20px;
+      }
+      .nav a {
+        text-decoration: none;
+        color: #000;
+        font-size: 1rem;
+        position: relative;
+        padding-bottom: 2px;
+        transition: color 0.3s ease;
+      }
+      .nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 2px;
+        background-color: #000;
+        transition: width 0.3s ease;
+      }
+      .nav a:hover::after {
+        width: 100%;
+      }
+
+      /* ========== MAP CONTAINER ========== */
+      .map-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px auto;
+        position: relative;
+      }
+      svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .country {
+        fill: #d3d3d3;
+        stroke: #000000;
+        stroke-width: 0.5px;
+        transition: fill 0.3s;
+      }
+      .country[data-included="true"] {
+        fill: #121f32;
+      }
+      .country.highlighted {
+        fill: #1c3669;
+        animation: pulse 1.5s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      /* Tooltip */
+      .tooltip {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 0.9rem;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      /* ========== FADE-IN ANIMATION ========== */
+      section {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 1s ease-out;
+        margin: 40px 0;
+      }
+      section.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ========== SIDE-BY-SIDE CARDS ========== */
+      .country-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two columns side by side */
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto 40px auto;
+      }
+      .country-flag {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 4px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .country-flag:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+      .country-flag img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        margin-bottom: 20px;
+        border-radius: 4px;
+      }
+      .country-flag h2 {
+        font-size: 1.5rem;
+        color: #121f32;
+        margin-bottom: 10px;
+      }
+      .country-flag p {
+        font-size: 1rem;
+        color: #333333;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        text-align: justify;
+      }
+      .country-flag p span {
+        font-weight: bold;
+        color: #121f32;
+      }
+      .country-flag p strong {
+        color: #121f32;
+      }
+
+      /* FOOTER */
+      .site-footer {
+        padding: 20px;
+        background: #ffffff;
+        text-align: center;
+        border-top: 1px solid #e0e0e0;
+        font-size: 1rem;
+        color: #000000;
+      }
+      .footer-content a {
+        color: #000;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      .footer-button {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+        color: #ffffff;
+        background: #121f32;
+        border: 1px solid #000000;
+        border-radius: 0px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .footer-button:hover {
+        background: #bebebe;
+        color: #000000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .nav {
+          display: none;
+        }
+        .menu-icon {
+          display: flex;
+        }
+        .country-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--Header Component-->
+    <div id="header-placeholder"></div>
+    <script>
+      fetch("/Navigation_Menu/Main_Header")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.text();
+        })
+        .then((data) => {
+          const headerPlaceholder =
+            document.getElementById("header-placeholder");
+          headerPlaceholder.innerHTML = data;
+
+          // Execute any scripts in the fetched HTML
+          const scripts = headerPlaceholder.getElementsByTagName("script");
+          for (let script of scripts) {
+            const newScript = document.createElement("script");
+            newScript.textContent = script.textContent;
+            document.body.appendChild(newScript);
+          }
+        })
+        .catch((error) => console.error("Error loading header:", error));
+    </script>
+
+    <!-- HEATMAP TITLE/SUBTITLE -->
+    <h2>Top Countries - VC Investment Per Capita 2024</h2>
+    <h4>VC investment in 2024 divided by population numbers (World Bank).</h4>
+
+    <!-- MAP -->
+    <div class="map-container">
+      <svg
+        id="world-map"
+        viewBox="0 0 1000 600"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <!-- Map paths appended by D3 -->
+      </svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <!-- ========== SIDE-BY-SIDE CARDS (Pairs) ========== -->
+
+    <!-- 1) USA + China -->
+    <section>
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/United States.jpg" alt="US Flag" />
+          <h2>United States</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$153.1 billion</strong>
+          </p>
+          <p>
+            <span>Main Sectors:</span> Technology, healthcare, fintech, and AI.
+            In recent years, AI alone saw over $25 billion in funding.
+          </p>
+          <p>
+            <span>Growth:</span> The U.S. maintains a mature VC ecosystem
+            supported by successful exits such as IPOs and acquisitions,
+            particularly in Silicon Valley. VC funding has grown steadily by
+            10–15% annually, even amid economic challenges.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/China.jpg" alt="china Flag" />
+          <h2>China</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$54.7 billion</strong>
+          </p>
+          <p>
+            <span>Main Sectors:</span> E-commerce, green energy, and AI, with
+            electric vehicle startups receiving $5 billion in funding.
+          </p>
+          <p>
+            <span>Growth:</span> Despite economic slowdowns, China remains a
+            major player, with robust government support for innovation and
+            technology startups. The rise of domestic unicorns has further
+            strengthened its ecosystem.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) India + UK -->
+    <section>
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/India.jpg" alt="India Flag" />
+          <h2>India</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$11.5 billion</strong>
+          </p>
+          <p>
+            <span>Main Sectors:</span>Fintech, e-commerce, and edtech. Fintech
+            companies like Razorpay saw investments exceeding $1 billion.
+          </p>
+          <p>
+            <span>Growth:</span> India’s VC activity has doubled since 2018,
+            fueled by its burgeoning digital economy and rising middle class.
+            Its large youth population and internet penetration have made it a
+            hotspot for investors.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img
+            src="All Flag Pictures/united-kingdom-2405963_1280.png"
+            alt="UK Flag"
+          />
+          <h2>United Kingdom</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$19.7 billion</strong>
+          </p>
+          <p>
+            <span>Main Sectors:</span> Fintech, health tech, and AI, with
+            fintech accounting for 40% of investments.
+          </p>
+          <p>
+            <span>Growth:</span> Over the last five years, London has
+            established itself as Europe’s financial tech hub, with annual
+            growth rates in VC investments reaching 12%. Government tax
+            incentives and Brexit-driven shifts have also spurred innovation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) France + South Korea -->
+    <section>
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/France.jpg" alt="France Flag" />
+          <h2>France</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$9.4 billion</strong>
+          </p>
+          <p>
+            <span>Main Sectors:</span> AI, SaaS, and green energy. Paris
+            startups alone raised $4 billion in 2023.
+          </p>
+          <p>
+            <span>Growth:</span> French government initiatives like "La French
+            Tech" and tax breaks for R&D have significantly boosted VC activity,
+            with yearly funding increasing by over 20% since 2018.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/South Korea.jpg" alt="South Korea Flag" />
+          <h2>South Korea</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$8.9 billion</strong>
+          </p>
+          <p><span>Main Sectors:</span> Electronics, gaming, and AI.</p>
+          <p>
+            <span>Growth:</span> Government initiatives, including startup
+            subsidies, have led to consistent VC growth of around 10% annually,
+            focusing on tech and content creation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) Germany + Canada -->
+    <section>
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/Germany.jpg" alt="Germany Flag" />
+          <h2>Germany</h2>
+          <p>
+            <span>Total VC Investment (2023):</span> <strong>$8 billion</strong>
+          </p>
+          <p>
+            <span>Main Sectors:</span> Automotive innovation, deep tech, and
+            green energy, with Berlin leading in software solutions and mobility
+            startups.
+          </p>
+          <p>
+            <span>Growth:</span> Germany’s emphasis on sustainability and
+            advanced manufacturing has led to consistent VC growth of 10–15% per
+            year since 2019.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/Canada.jpg" alt="Canada Flag" />
+          <h2>Canada</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$6.7 billion</strong>
+          </p>
+          <p><span>Main Sectors:</span> AI, clean energy, and digital health</p>
+          <p>
+            <span>Growth:</span> Canada’s tech hubs, particularly in the
+            Toronto-Waterloo Corridor, have experienced rapid growth, with VC
+            funding increasing 18% annually over the past three years.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5) Singapore + Sweden -->
+    <section>
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/Singapore.jpg" alt="Singapore flag" />
+          <h2>Singapore</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$5.8 billion</strong>
+          </p>
+          <p><span>Main Sectors:</span> Fintech and logistics</p>
+          <p>
+            <span>Growth:</span> Singapore’s pro-business policies and strategic
+            location have made it a growing leader in Southeast Asia, with VC
+            activity increasing by 25% since 2020.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/Sweden.jpg" alt="Sweden Flag" />
+          <h2>Sweden</h2>
+          <p>
+            <span>Total VC Investment (2023):</span> <strong>$5 billion</strong>
+          </p>
+          <p><span>Main Sectors:</span> Green energy and tech startups.</p>
+          <p>
+            <span>Growth:</span> Sweden continues to attract VC investments due
+            to its strong focus on sustainability and innovation-driven
+            enterprises.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6) Japan + Israel -->
+    <section>
+      <div class="country-row">
+        <div class="country-flag">
+          <img src="All Flag Pictures/Japan.png" alt="Japan Flag" />
+          <h2>Japan</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$4.8 billion</strong>
+          </p>
+          <p><span>Main Sectors:</span> Robotics, AI, and health tech</p>
+          <p>
+            <span>Growth:</span> Japan's aging population has driven growth in
+            health tech and robotics, with a focus on innovation in automation
+            and AI.
+          </p>
+        </div>
+
+        <div class="country-flag">
+          <img src="All Flag Pictures/Isreal.jpg" alt="Isreal Flag" />
+          <h2>Israel</h2>
+          <p>
+            <span>Total VC Investment (2023):</span>
+            <strong>$4.4 billion</strong>
+          </p>
+          <p>
+            <span>Main Sectors:</span> Cybersecurity, AI, and health tech, with
+            cybersecurity attracting $1.2 billion.
+          </p>
+          <p>
+            <span>Growth:</span>Known as the "Startup Nation," Israel continues
+            to attract global VC funds due to its strong R&D ecosystem and
+            success stories like Mobileye and Check Point.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>2024 Disruptive Capital. All Rights Reserved.</p>
+        <p>
+          Site Design by
+          <a
+            href="https://www.linkedin.com/in/safiyahs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Safiyah Sheikh
+          </a>
+        </p>
+        <a href="terms.html" class="footer-button">Terms and Conditions</a>
+        <a href="cookie.html" class="footer-button">Cookie Policy</a>
+      </div>
+    </footer>
+
+    <script>
+      // ========== MAP INTERACTION ==========
+
+      const svg = d3.select("#world-map");
+      const tooltip = document.getElementById("tooltip");
+
+      const vcData = {
+        Singapore: 507,
+        USA: 449,
+        Israel: 301,
+        Switzerland: 278,
+        "United Arab Emirates": 249,
+        Sweden: 207,
+        "United Kingdom": 207,
+        Ireland: 172,
+        Norway: 171,
+        Canada: 155,
+        Estonia: 145,
+        Denmark: 142,
+        Netherlands: 130,
+        "Hong Kong": 122,
+        Finland: 104,
+        France: 101,
+        Belgium: 90,
+        Australia: 86,
+        Germany: 86,
+        "South Korea": 59,
+      };
+
+      const projection = d3.geoMercator();
+      const path = d3.geoPath().projection(projection);
+
+      const svgElement = document.getElementById("world-map");
+      const viewBoxWidth = svgElement.viewBox.baseVal.width;
+      const viewBoxHeight = svgElement.viewBox.baseVal.height;
+
+      d3.json(
+        "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
+      )
+        .then((geojson) => {
+          projection.fitSize([viewBoxWidth, viewBoxHeight], geojson);
+
+          // Draw countries
+          svg
+            .selectAll(".country")
+            .data(geojson.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .attr("class", "country")
+            .attr("data-included", (d) =>
+              vcData[d.properties.name] ? "true" : "false"
+            )
+            .attr("fill", (d) =>
+              vcData[d.properties.name] ? "#007bff" : "#d3d3d3"
+            )
+            .on("mouseover", function (event, d) {
+              const countryName = d.properties.name;
+              const vcValue = vcData[countryName] || "No data";
+
+              // Position tooltip relative to the container
+              const containerRect = document
+                .querySelector(".map-container")
+                .getBoundingClientRect();
+              const tooltipX = event.clientX - containerRect.left + 10;
+              const tooltipY = event.clientY - containerRect.top - 20;
+
+              tooltip.style.left = `${tooltipX}px`;
+              tooltip.style.top = `${tooltipY}px`;
+              tooltip.style.visibility = "visible";
+              tooltip.style.opacity = "1";
+              tooltip.innerHTML = `<strong>${countryName}</strong><br>VC Investment: $${vcValue}`;
+            })
+            .on("mouseout", () => {
+              tooltip.style.visibility = "hidden";
+              tooltip.style.opacity = 0;
+            })
+            .on("click", function () {
+              const isHighlighted = d3.select(this).classed("highlighted");
+              // Remove highlight from all countries
+              svg.selectAll(".country").classed("highlighted", false);
+              // Toggle highlight
+              if (!isHighlighted) d3.select(this).classed("highlighted", true);
+            });
+        })
+        .catch((error) => console.error("Error loading GeoJSON data:", error));
+
+      // ========== SCROLL-BASED FADE-IN ==========
+
+      document.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll("section");
+        sections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+          if (sectionTop < triggerPoint) {
+            section.classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

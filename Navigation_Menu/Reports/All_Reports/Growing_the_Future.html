@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quantum Computing Report</title>
+  
+  <!-- Chart.js + your scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../scripts.js"></script>
+
+  <!-- Google Fonts + main stylesheet -->
+  <link rel="stylesheet" href="../styles.css" />
+
+
+  <style>
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #fff;
+      font-family: inherit;
+    }
+
+    /* Dark blue background + white text (original scheme) */
+    .start {
+      background-color: #002147;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      position: relative;
+      top: 0;
+    }
+
+    .main-headline {
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      color: #fff;
+    }
+    /* Large text for the first line */
+    .headline-part {
+      display: block;  /* Force it onto its own line */
+      font-size: 3rem; /* Big headline on desktop */
+    }
+    /* Smaller text for the second line */
+    .headline-desc {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 0.5rem;
+      text-transform: none;
+      font-style: normal;
+    }
+
+    .start h2 {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 10px auto 0;
+      max-width: 800px;
+      color: #fff;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      font-family: 'Roboto', sans-serif; /* Body text in Roboto */
+    }
+
+    section {
+      margin: 40px 0;
+    }
+    section h2 {
+      font-size: 2rem;
+      color: #002147;
+      margin-bottom: 15px;
+    }
+    section h3 {
+      font-size: 1.5rem;
+      color: #004080;
+      margin-bottom: 10px;
+    }
+
+    p span {
+      font-weight: bold;
+      color: #002147;
+    }
+    p strong {
+      font-weight: bold;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    /* Fade-in effect for sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      visibility: hidden;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    h4 {
+      margin-block-start: 1.33em;
+      margin-block-end: 1.33em;
+      font-weight: bold;
+      unicode-bidi: isolate;
+    }
+
+    /*
+      Chart container with fixed height for desktop (400px),
+      but bigger bottom margin so text doesn't overlap on mobile.
+    */
+    .chart-container {
+      margin: 40px auto 40px; /* bigger bottom margin so text won't overlap */
+      position: relative;
+      height: 400px; 
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /*
+      If a <section> or <p> follows .chart-container immediately,
+      give more top margin to push text further down
+    */
+    .chart-container + section,
+    .chart-container + p {
+      margin-top: 60px !important;
+    }
+
+    .chart-container canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      main {
+        max-width: 90%;
+      }
+      .headline-part {
+        font-size: 2.5rem;
+      }
+      .headline-desc {
+        font-size: 1.2rem;
+      }
+      .start h2 {
+        font-size: 1rem;
+      }
+      .chart-container {
+        height: 300px; /* tablet size */
+        margin: 40px auto 100%; /* ensure bigger bottom margin too */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .headline-part {
+        font-size: 2rem;
+      }
+      .headline-desc {
+        font-size: 1rem;
+      }
+      .start h2 {
+        font-size: 0.9rem;
+      }
+      section h2 {
+        font-size: 1.8rem; /* reduce heading size for phones */
+      }
+      .chart-container {
+        height: 250px; /* phone size */
+        margin: 40px auto 100px; /* bigger bottom margin on phones */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--Header Component-->
+  <dc-header></dc-header>
+
+    <div class="start">
+      <h1 class="main-headline">
+        <span class="headline-part">Growing the Future</span>
+        <span class="headline-desc">Opportunities in Vertical Farming and AgriTech</span>
+      </h1>
+      <h2>Disruptive Capital Insight Report | November 2024</h2>
+    </div>
+    <main>
+      <section class="fade-in">
+        <h2>Executive Summary</h2>
+        <p>
+          Vertical farming and agricultural technology (AgriTech) are transforming
+          the global food system. Using cutting-edge controlled-environment
+          agriculture, vertical farms enable year-round production with up to
+          <span>95% less water</span>, minimal land use, and no reliance on
+          pesticides. Coupled with innovations in AI-driven crop management and
+          robotics, these technologies are addressing critical challenges in food
+          security and sustainability.
+        </p>
+        <p>
+          In 2024, the global vertical farming market attracted over
+          <span>$1 billion</span> in venture capital funding, with leading
+          players like Bowery Farming, Plenty, and AeroFarms scaling operations
+          to meet rising demand. As the market grows from <span>$5.5 billion</span>
+          in 2023 to a projected <span>$24 billion</span> by 2030, this sector
+          offers transformative opportunities for investors, entrepreneurs, and
+          policymakers.
+        </p>
+        <p>
+          <strong>Our Perspective:</strong> Vertical farming and AgriTech are not
+          just solving problems—they are building the future of food. Early movers
+          in this sector will shape the global food economy and unlock immense
+          value.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>The Market at a Glance: A Growing Market with Global Impact</h2>
+        <p>
+          The vertical farming market is expanding rapidly, with a CAGR of
+          <span>22.5%</span> through 2030. This growth is fueled by urbanization,
+          the increasing need for sustainable agriculture, and climate-related
+          disruptions to traditional farming methods.
+        </p>
+        <h3>Why It’s Exciting</h3>
+        <ul>
+          <li>
+            <strong>Scalable Solutions:</strong> Vertical farming can produce
+            <span>100 times</span> more food per square foot compared to
+            traditional farming, enabling localized production in urban areas.
+          </li>
+          <li>
+            <strong>Environmental Impact:</strong> By minimizing water use and
+            greenhouse gas emissions, vertical farming aligns with global
+            sustainability goals.
+          </li>
+          <li>
+            <strong>Market Growth:</strong> The projected market size of
+            <span>$24 billion</span> by 2030 reflects accelerating adoption and
+            technological innovation.
+          </li>
+        </ul>
+        <p>
+          <strong>Key Insight:</strong> By 2050, feeding a global population of
+          <span>9.7 billion</span> will require a <span>70% increase</span> in
+          food production. Vertical farming offers a scalable, sustainable
+          solution to this challenge.
+        </p>
+      </section>
+
+      <div class="chart-container">
+        <h3>Global Vertical Farming Market Projection (2022–2032)</h3>
+        <canvas id="verticalFarmingGraph" width="800" height="400"></canvas>
+        <p><em>Figure: Market projection of vertical farming (in billion U.S. dollars).</em></p>
+      </div>
+
+      <section class="fade-in">
+        <br>
+        <h2>The Pillars of Vertical Farming and AgriTech</h2>
+
+        <h3>1. Controlled-Environment Agriculture: Precision at Scale</h3>
+        <p>
+          Vertical farms rely on highly controlled environments to regulate light,
+          temperature, and humidity, enabling consistent yields regardless of
+          external conditions. This precision reduces the risks associated with
+          weather and pests, ensuring reliable production.
+        </p>
+        <h4>Example: Bowery Farming</h4>
+        <p>
+          Bowery Farming’s New Jersey facility produces <span>100 times</span>
+          more food per square foot than traditional farming, using zero
+          pesticides and <span>95% less water</span>. Such efficiency is making
+          vertical farming a cornerstone of urban food systems.
+        </p>
+        <p>
+          <strong>Key Insight:</strong> While the U.S. leads adoption,
+          Asia-Pacific markets, especially Japan and Singapore, are rapidly
+          scaling vertical farming operations to enhance food security.
+        </p>
+
+        <h3>2. AI-Driven AgriTech: Smarter Food Production</h3>
+        <p>
+          Artificial intelligence and machine learning are optimizing every aspect
+          of vertical farming, from monitoring crop health to predicting yields
+          and reducing resource consumption. AI systems provide real-time
+          insights, enabling higher efficiency and output.
+        </p>
+        <h4>Case Study: Plenty</h4>
+        <p>
+          Plenty uses AI to analyze over <span>10 million</span> data points
+          daily, optimizing growing conditions and achieving <span>30%</span>
+          higher yields than industry averages. Such advancements demonstrate the
+          potential of AI-driven agriculture.
+        </p>
+        <p>
+          <strong>Actionable Insight:</strong> Startups developing proprietary AI
+          models for agriculture are becoming prime targets for venture capital,
+          with investors recognizing their transformative potential.
+        </p>
+
+        <h3>3. Robotics and Automation: Redefining Labor</h3>
+        <p>
+          Automation is revolutionizing vertical farming by reducing labor costs
+          and increasing operational efficiency. Robotic systems handle planting,
+          watering, and harvesting with unmatched precision, enabling scalability
+          without proportional increases in labor costs.
+        </p>
+        <h4>Example: Iron Ox</h4>
+        <p>
+          Iron Ox, a robotics-powered farm in California, uses fully autonomous
+          robots to manage crops, reducing labor costs by <span>60%</span>. This
+          model highlights the role of robotics in improving profitability and
+          scalability.
+        </p>
+        <p>
+          <strong>Key Insight:</strong> Automation is critical for scaling
+          vertical farms and meeting rising demand in urban markets.
+        </p>
+
+        <h3>4. Sustainability: A Climate-Resilient Solution</h3>
+        <p>
+          Vertical farming is a climate-resilient alternative to traditional
+          agriculture, requiring no arable land and drastically reducing
+          greenhouse gas emissions associated with food transportation.
+        </p>
+        <h4>Example: Singapore’s Urban Food Security Initiative</h4>
+        <p>
+          Singapore, which imports over <span>90%</span> of its food, is
+          leveraging vertical farms to achieve its goal of producing
+          <span>30%</span> of its nutritional needs locally by 2030. This strategy
+          is reducing reliance on imports and enhancing resilience.
+        </p>
+        <p>
+          <strong>Key Insight:</strong> Sustainability-focused investors are
+          increasingly directing capital toward urban vertical farming
+          initiatives, which align with global climate goals.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Regional Dynamics: Leaders and Emerging Markets</h2>
+
+        <h3>United States: Scaling Innovation</h3>
+        <p>
+          <strong>Investment:</strong> <span>$500 million</span> in 2024, driven
+          by urban demand and technological advancements.
+        </p>
+        <p><strong>Key Players:</strong> Bowery Farming, AeroFarms, Plenty.</p>
+
+        <h3>Asia-Pacific: Leading in Urban Solutions</h3>
+        <p>
+          <strong>Focus:</strong> Urban food security, with significant
+          investment in Japan, Singapore, and South Korea.
+        </p>
+        <h4>Example: Spread Co.</h4>
+        <p>
+          Spread Co.’s vertical farm in Kyoto produces <span>21,000</span> heads
+          of lettuce daily, showcasing the region’s operational scale.
+        </p>
+
+        <h3>Europe: Advancing Sustainability</h3>
+        <p>
+          <strong>Initiative:</strong> The EU’s Green Deal is driving investment
+          in vertical farms to meet sustainability targets.
+        </p>
+        <p><strong>Focus Areas:</strong> Renewable energy integration and regional food security.</p>
+
+        <p>
+          <strong>Key Insight:</strong> Regional specialization is driving
+          innovation and investment, with localized solutions tailored to address
+          unique challenges and opportunities.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Barriers to Scale: Challenges and Opportunities</h2>
+        <ul>
+          <li>
+            <strong>High Initial Costs:</strong> Building vertical farms requires
+            <span>$10–$30 million</span> in upfront capital, creating financial
+            barriers for startups.
+          </li>
+          <li>
+            <strong>Energy Dependency:</strong> LED lighting and climate control
+            systems are energy-intensive, increasing operational costs.
+          </li>
+          <li>
+            <strong>Limited Crop Variety:</strong> Current systems are optimized
+            for leafy greens and herbs, limiting scalability for staple crops
+            like wheat or rice.
+          </li>
+        </ul>
+        <p>
+          <strong>Strategic Focus:</strong> Addressing these barriers through
+          renewable energy integration, advanced crop development, and cost
+          reduction technologies will unlock greater scalability and
+          profitability.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Strategic Recommendations: Growing the Future</h2>
+        <ol>
+          <li>
+            <h3>Focus on Urban Markets</h3>
+            <p>
+              Prioritize cities with high land costs and demand for locally
+              sourced food, such as New York, Tokyo, and London.
+            </p>
+            <p>
+              Leverage urban farming to reduce transportation emissions and
+              deliver fresher produce.
+            </p>
+          </li>
+          <li>
+            <h3>Invest in Renewable Energy Integration</h3>
+            <p>
+              Utilize solar and wind power to offset energy costs for lighting and
+              climate control.
+            </p>
+            <p>
+              Renewable energy partnerships can enhance profitability and
+              sustainability.
+            </p>
+          </li>
+          <li>
+            <h3>Partner with Retail and Foodservice Chains</h3>
+            <p>
+              Collaborate with grocery stores and restaurants to establish
+              reliable demand and revenue streams.
+            </p>
+            <h4>Example: Whole Foods</h4>
+            <p>
+              Whole Foods sources produce from local vertical farms, ensuring
+              consistent market access for growers.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="fade-in">
+        <h2>Conclusion: Building a Resilient Food Future</h2>
+        <p>
+          Vertical farming and AgriTech represent a paradigm shift in global food
+          production, addressing challenges of sustainability, food security, and
+          urbanization. As technologies mature and operations scale, this sector
+          will play a pivotal role in shaping the future of the global food
+          economy.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Call to Action</h2>
+        <p>
+          Gain unparalleled insights into emerging trends and disruptive markets
+          with <strong>Disruptive Capital</strong>. Contact us to discover
+          tailored strategies and unlock the immense opportunities shaping the
+          future.
+        </p>
+        <p><strong>Take the first step—partner with us today.</strong></p>
+      </section>
+    </main>
+
+  <script>
+    const ctx = document.getElementById('verticalFarmingGraph').getContext('2d');
+    const verticalFarmingGraph = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032'],
+        datasets: [{
+          label: 'Market Size (in billion USD)',
+          data: [5.6, 6.8, 8, 10.1, 12.5, 14.7, 16.6, 20.1, 23.7, 28.6, 35.3],
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 2,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Year'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Market Size (in billion USD)'
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeInSections = document.querySelectorAll('.fade-in');
+
+      const revealSections = () => {
+        fadeInSections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+
+          if (sectionTop < triggerPoint) {
+            section.classList.add('visible');
+          }
+        });
+      };
+
+      // Check on page load and on scroll
+      window.addEventListener('scroll', revealSections);
+      revealSections(); // Initial check
+    });
+  </script>
+
+  <script src="./components/Header.js"></script>
+</body>
+</html>

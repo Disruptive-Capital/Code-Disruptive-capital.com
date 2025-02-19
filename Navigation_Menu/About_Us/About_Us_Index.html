@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Disruptive Capital</title>
+    <link rel="stylesheet" href="/Homepage/styles.css">
+
+</head>
+<body>
+    <!--Header Component-->
+    <div id="header-placeholder"></div>
+    <script>
+      fetch('/Navigation_Menu/Main_Header')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          const headerPlaceholder = document.getElementById('header-placeholder');
+          headerPlaceholder.innerHTML = data;
+
+          // Execute any scripts in the fetched HTML
+          const scripts = headerPlaceholder.getElementsByTagName('script');
+          for (let script of scripts) {
+            const newScript = document.createElement('script');
+            newScript.textContent = script.textContent;
+            document.body.appendChild(newScript);
+          }
+        })
+        .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!-- Team Profiles Section -->
+    <section class="team-profiles">
+        <h2>About Us</h2>
+        <p class="section-description">Our team combines deep expertise in emerging markets with cutting-edge research to deliver unparalleled insights.</p>
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-card">
+                <img src="/Navigation_Menu/About_Us/Images/Cassian_Headshot.png" alt="Cassian Persico">
+                <h3>Cassian Persico Peña</h3>
+    
+                <p><i>Co-Founder based in New York</i>
+                </p>
+                <p class="bio">Cassian Persico Peña, a multilingual businessman based in New York City, has held key roles at Grupo Atlántida, the Federal Reserve (National Competition), and the United Nations Association of the USA. Passionate about solving complex challenges, he creates meaningful impact in global markets</p>
+            </div>
+
+
+            <!-- Team Member 2 -->
+            <div class="team-card">
+                <img src="/Navigation_Menu/About_Us/Images/Maks_Headshot.png" alt="Maks Ille">
+                <h3>Maks Ille</h3>
+                <p><i>Co-Founder based in Hamburg, Germany</i></p>
+                <p class="bio">Maks Ille is an accomplished international business developer with expertise in fostering cross-border partnerships and navigating complex foreign markets. With a strong foundation in international relations and foreign affairs, he excels in building strategic alliances that drive global business growth. His passion lies in facilitating cooperation and creating innovative solutions for international enterprises.</p>
+            </div>
+            
+    </section>
+    <!--Footer Component-->
+    <div id="footer"></div>
+    <script>
+      fetch('/Footer/Footer_Index.html')
+        .then(response => response.text())
+        .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
+</body>
+</html>

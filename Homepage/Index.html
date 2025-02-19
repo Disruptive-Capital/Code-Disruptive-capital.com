@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-122F12ZW37"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-122F12ZW37');
+</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- For .png format -->
+    <link rel="icon" href="./images/dclogo.png" type="image/png" />
+
+    <title>Disruptive Capital</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="scripts.js" defer></script>
+  </head>
+
+  <body>
+    <!--Header Component-->
+    <div id="header-placeholder"></div>
+    <script>
+      fetch('/Navigation_Menu/Main_Header')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          const headerPlaceholder = document.getElementById('header-placeholder');
+          headerPlaceholder.innerHTML = data;
+
+          // Execute any scripts in the fetched HTML
+          const scripts = headerPlaceholder.getElementsByTagName('script');
+          for (let script of scripts) {
+            const newScript = document.createElement('script');
+            newScript.textContent = script.textContent;
+            document.body.appendChild(newScript);
+          }
+        })
+        .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <!-- 1) Background images (stacked & absolutely positioned) -->
+      <div
+        class="hero-bg visible"
+        style="background-image: url('images/imgFour.jpg')"
+      ></div>
+      <div
+        class="hero-bg"
+        style="background-image: url('images/img2.jpg')"
+      ></div>
+      <!-- Add more if you want more than 2 images -->
+
+      <!-- 2) Hero Content Overlay -->
+      <div class="hero-content">
+        <h1>Empowering You to Lead in Emerging Markets</h1>
+        <p>Clear insights. Billion-dollar opportunities.</p>
+        <a href="/Navigation_Menu/Reports/Reports_Archive.html" class="cta-button">Explore Reports ➔</a>
+      </div>
+    </section>
+
+    <!-- Investor & Expert Quotes Section -->
+    <section class="quotes-section">
+      <h2>Hear From Our Clients</h2>
+      <div class="quotes-container">
+        <div class="quote">
+          <p>
+            "Whenever I need to understand the next big opportunity, I turn to
+            Disruptive Capital. Their research breaks down billion-dollar
+            ventures into clear, actionable insights I can trust."
+          </p>
+          <span>- Managing Director, Investment Firm</span>
+        </div>
+        <div class="quote">
+          <p>
+            "Disruptive Capital stays laser-focused on high-growth emerging
+            markets. Their insights are always spot on."
+          </p>
+          <span>— Private Equity Analyst, Toronto, Canada</span>
+        </div>
+        <div class="quote">
+          <p>
+            “They simplify complex data into actionable strategies. It’s a
+            game-changer for navigating emerging markets.”
+          </p>
+          <span>— Emerging Markets Consultant, Singapore</span>
+        </div>
+        <div class="quote">
+          <p>
+            “Disruptive Capital makes tough markets accessible. Their clarity is
+            unmatched.”
+          </p>
+          <span>— Venture Capital Partner, San Francisco, USA</span>
+        </div>
+        <div class="quote">
+          <p>
+            “They’re more than a research platform—they’re a trusted partner for
+            high-growth investments.”
+          </p>
+          <span>— Economic Policy Advisor, Buenos Aires, Argentina </span>
+        </div>
+      </div>
+    </section>
+
+    <div class="animated-list-container">
+      <div class="list-item" data-criteria="Sectoral Growth">
+        <h3><i>Who We Are</i></h3>
+        <p>
+      <div class="animated-list">
+        <div class="list-item" data-criteria="Investment Levels">
+          <p>
+            <p>Disruptive Capital is more than a market research firm—we are
+              enablers of transformative progress. We combine top-tier research
+              with hands-on execution, collaborating with government officials and
+              private investors to identify and realize billion-dollar
+              opportunities across high-growth sectors such as infrastructure,
+              technology, and natural resources.</p>
+              
+  <br>
+  
+  <p>Our mission is to simplify
+              complex global trends and empower our partners to drive measurable
+              impact. By working closely with stakeholders, we deliver solutions
+              that promote sustainable growth and innovation in emerging markets.</p>
+          </p>
+        </div>
+        <div class="list-item" data-criteria="Sectoral Growth">
+          <h3><i>What We Offer</i></h3>
+          <p>
+            <p>Disruptive Capital offers a comprehensive approach to creating impact. Our premium research reports provide unparalleled depth, actionable insights, and strategic foresight, helping clients uncover opportunities in high-growth sectors.</p>
+              
+  <br>
+  
+  <p>But we don’t stop at insights—we help bring projects to life. From large-scale infrastructure initiatives to groundbreaking technological advancements and resource development, we partner with clients to turn strategy into execution, delivering results that transform ideas into lasting success.</p>
+          </p>
+        </div>
+        <div class="list-item" data-criteria="Economic Potential">
+          <h3><i>Why Choose Us</i></h3>
+          <p>
+            <p>At Disruptive Capital, we stand apart by specializing exclusively in emerging markets and high-growth sector. 
+              Our deep expertise in these dynamic regions enables us to deliver tailored strategies and actionable insights designed 
+              to capitalize on transformative opportunities. </p>
+              
+  <br>
+  
+  <p>Unlike others, we don’t stop at research—we work alongside government officials and private investors to execute impactful projects, turning bold ideas into measurable success. By focusing on untapped markets and industries shaping the global economy, we provide our clients with the strategic advantage needed to drive sustainable growth and lead in a competitive landscape.</p>
+          </p>
+        </div>
+      </div>
+    </div>
+    <style>
+      .adjustable-space {
+        margin-top: 40px; /* Adjust this value to increase/decrease space above */
+        margin-bottom: -50px; /* Adjust this value to increase/decrease space below */
+      }
+    </style>
+    <section id="vc-investment" class="adjustable-space">
+      <iframe
+        src="globalleadingind.html"
+        width="100%"
+        height="550"
+        frameborder="0"
+      ></iframe>
+    </section>
+    
+    <h2 class="animated-list-title" style="text-align: center; width: 100%; margin-top: 80px;">
+      How We Identify and Evaluate Emerging Markets
+    </h2>
+    <div class="animated-list-container" style="margin-left: 0; padding-left: 0; margin-top: -30px; width: 100%;">
+      <div class="animated-list" style="width: 100%;">
+        <div class="list-item" data-criteria="Macro-Economic Analysis" style="width: 100%;">
+          <h3>Macro-Economic Analysis</h3>
+          <p>
+            We begin by assessing the macroeconomic landscape, focusing on key indicators such as GDP growth, 
+            inflation rates, foreign direct investment (FDI) flows, and demographic trends. By analyzing these 
+            factors, we identify markets with high growth potential and long-term stability. Our proprietary 
+            algorithms process vast datasets to pinpoint anomalies and trends that might otherwise go unnoticed.
+          </p>
+        </div>
+        <div class="list-item" data-criteria="Political and Regulatory Landscape" style="width: 100%;">
+          <h3>Political and Regulatory Landscape</h3>
+          <p>
+            Understanding the political and regulatory environment is crucial to evaluating the viability 
+            of investments in emerging markets. Our team conducts in-depth research on governance quality, policy frameworks, and regulatory risks, providing a nuanced perspective on how political dynamics might impact business operations and investment returns.
+          </p>
+        </div>
+        <div class="list-item" data-criteria="Sector-Specific Insights" style="width: 100%;">
+          <h3>Sector-Specific Insights</h3>
+          <p>
+            We delve into sector-level analysis to identify industries poised for growth within each market. 
+            By leveraging advanced analytics and on-the-ground intelligence, we map out competitive landscapes, supply chain efficiencies, and innovation trajectories, ensuring that we focus on sectors with the highest potential for disruption and profitability.
+          </p>
+        </div>
+        <div class="list-item" data-criteria="Sustainability and SDG Considerations" style="width: 100%;">
+          <h3>Sustainability and SDG Considerations</h3>
+          <p>
+            We integrate the United Nations Sustainable Development Goals (SDGs) into our evaluation process, 
+            aligning our approach with these global objectives. Our assessments focus on how markets contribute 
+            to sustainable development, emphasizing climate resilience, social equity, and responsible governance. 
+            This approach ensures that our recommendations support both economic growth and progress toward achieving 
+            the SDGs, fostering long-term viability and meaningful impact.
+          </p>
+        </div>
+        <div class="archive-button-container">
+          <a href="/Navigation_Menu/Insights/Market_Assessment.html" class="archive-button"
+            >Learn more ➔</a
+          >
+        </div>
+        <div class="list-item" data-criteria="Risk Assessment and Mitigation" style="width: 100%;">
+          <h3>Risk Assessment and Mitigation</h3>
+          <p>
+            Emerging markets often present unique risks, including currency volatility, geopolitical tensions, 
+            and infrastructure gaps. Our comprehensive risk assessment framework identifies these challenges and 
+            develops mitigation strategies. We stress-test scenarios and create contingency plans to safeguard investments.
+          </p>
+        </div>
+        <div class="list-item" data-criteria="Local Partnerships and On-the-Ground Expertise" style="width: 100%;">
+          <h3>Local Partnerships and On-the-Ground Expertise</h3>
+          <p>
+            We collaborate with local experts, institutions, and businesses to gain nuanced insights that are 
+            not accessible through conventional research methods. These partnerships enable us to validate our 
+            findings, adapt to cultural nuances, and uncover hidden opportunities.
+          </p>
+        </div>
+        <div class="list-item" data-criteria="Dynamic Monitoring and Adaptation" style="width: 100%;">
+          <h3>Dynamic Monitoring and Adaptation</h3>
+          <p>
+            Markets evolve, and so do our strategies. Through dynamic monitoring and
+            real-time data analysis, we continuously refine our evaluations. Our clients
+            benefit from insights that remain relevant, actionable, and aligned with
+            shifting global trends.
+          </p>
+        </div>
+      </div>
+      <div class="list-item" data-criteria="Dynamic Monitoring and Adaptation" style="width: 100%;">
+        <h3>Why It Matters</h3>
+        <p>
+          Our process is more than just analysis—it is a roadmap for success in complex and volatile markets. By combining cutting-edge technology, human expertise, and a commitment to sustainability, Disruptive Capital empowers clients to make informed, confident decisions. Whether entering new markets, scaling operations, or navigating challenges, we deliver the clarity and foresight necessary for impactful results.
+        </p>
+      </div>
+    </div>
+
+    <!-- Featured Reports -->
+    <!-- Reports Section -->
+    <section id="reports" class="featured-reports">
+      <h2>Featured Reports</h2>
+      <div class="report-grid">
+        <div class="report-card">
+          <img src="/Navigation_Menu/Reports/Images/Powering_the_Future.png" alt="Report 1" />
+          <h3>Powering the Future: Opportunities in AI Infrastructure</h3>
+          <p>November 2024 | Disruptive Capital Insight Report</p>
+          <a href="/Navigation_Menu/Reports/All_Reports/Powering_the_Future.html" class="report-button"
+            >Read Report</a
+          >
+        </div>
+
+        <div class="report-card">
+          <img src="/Navigation_Menu/Reports/Images/Beyond_Earth.png" alt="Report 2" />
+          <h3>Beyond Earth: Opportunities in the Emerging Space Industry</h3>
+          <p>November 2024 | Disruptive Capital Insight Report</p>
+          <a href="/Navigation_Menu/Reports/All_Reports/Beyond_Earth.html" class="report-button"
+            >Read Report</a
+          >
+        </div>
+
+        <div class="report-card">
+          <img src="/Navigation_Menu/Reports/Images/Fueling_the_Future.png" alt="Report 3" />
+          <h3>
+            Fueling the Future: Opportunities in Green Hydrogen Production
+          </h3>
+          <p>November 2024 | Disruptive Capital Insight Report</p>
+          <a href="/Navigation_Menu/Reports/All_Reports/Fueling_the_Future.html" class="report-button"
+            >Read Report</a
+          >
+        </div>
+
+        <div class="report-card">
+          <img src="/Navigation_Menu/Reports/Images/Quantum_Computing.png" alt="Report 4" />
+          <h3>
+            Quantum Computing: The Next Frontier in Technological Transformation
+          </h3>
+          <p>November 2024 | Disruptive Capital Insight Report</p>
+          <a href="/Navigation_Menu/Reports/All_Reports/Quantum_Computing.html" class="report-button"
+            >Read Report</a
+          >
+        </div>
+
+        <div class="report-card">
+          <img src="/Navigation_Menu/Reports/Images/Forging_the_Future.png" alt="Report 5" />
+          <h3>
+            Forging the Future: Opportunities in Semiconductor Manufacturing
+          </h3>
+          <p>November 2024 | Disruptive Capital Insight Report</p>
+          <a href="/Navigation_Menu/Reports/All_Reports/Forging_the_Future.html" class="report-button"
+            >Read Report</a
+          >
+        </div>
+
+        <div class="report-card">
+          <img src="/Navigation_Menu/Reports/Images/Building_the_Future.png" alt="Report 6" />
+          <h3>
+            Building the Future: Opportunities in Advanced Materials – Graphene
+            and 2D Materials
+          </h3>
+          <p>November 2024 | Disruptive Capital Insight Report</p>
+          <a href="/Navigation_Menu/Reports/All_Reports/Building_the_Future.html" class="report-button"
+            >Read Report</a
+          >
+        </div>
+      </div>
+
+      <div class="archive-button-container">
+        <a href="/Navigation_Menu/Reports/Reports_Archive.html" class="archive-button"
+          >View Reports Archive ➔</a
+        >
+      </div>
+    </section>
+
+    <!--  
+<section id="tech-segments">
+  <iframe src="techsegmentmap.html" width="100%" height="800" frameborder="0"></iframe>
+</section>
+
+-->
+    <!--Footer Component-->
+    <div id="footer"></div>
+    <script>
+      fetch('/Footer/Footer_Index.html')
+        .then(response => response.text())
+        .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
+
+
+    <script>
+      // Select all your background divs
+      const backgrounds = document.querySelectorAll(".hero-bg");
+      let currentIndex = 0;
+
+      // Set how long each image stays visible (milliseconds)
+      const intervalTime = 5000; // 5 seconds
+
+      // This function handles the crossfade
+      function crossFade() {
+        // Remove .visible from the current image
+        backgrounds[currentIndex].classList.remove("visible");
+
+        // Move to the next image (loop back to zero if at the end)
+        currentIndex = (currentIndex + 1) % backgrounds.length;
+
+        // Add .visible to the new current image
+        backgrounds[currentIndex].classList.add("visible");
+      }
+
+      // Run crossFade on a timer
+      setInterval(crossFade, intervalTime);
+    </script>
+  </body>
+</html>

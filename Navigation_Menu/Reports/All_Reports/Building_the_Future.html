@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quantum Computing Report</title>
+  
+  <!-- D3 and your scripts -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="../scripts.js"></script>
+  <link rel="stylesheet" href="../styles.css" />
+
+  <style>
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #fff;
+      font-family: inherit;
+    }
+
+    /* Dark blue background + white text (original scheme) */
+    .start {
+      background-color: #002147;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      position: relative;
+      top: 0;
+    }
+
+    .main-headline {
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      color: #fff;
+    }
+    /* Large text for the first line */
+    .headline-part {
+      display: block;  /* Force it onto its own line */
+      font-size: 3rem; /* Big headline on desktop */
+    }
+    /* Smaller text for the second line */
+    .headline-desc {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 0.5rem;
+      text-transform: none;
+      font-style: normal;
+    }
+
+    .start h2 {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-style: italic;
+      margin: 10px auto 0;
+      max-width: 800px;
+      color: #fff;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    section {
+      margin: 40px 0;
+    }
+    section h2 {
+      font-size: 2rem;
+      color: #002147;
+      margin-bottom: 15px;
+    }
+    section h3 {
+      font-size: 1.5rem;
+      color: #004080;
+      margin-bottom: 10px;
+    }
+
+    p span {
+      font-weight: bold;
+      color: #002147;
+    }
+    p strong {
+      font-weight: bold;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    /* Fade-in effect for sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      visibility: hidden;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    h4 {
+      margin-block-start: 1.33em;
+      margin-block-end: 1.33em;
+      font-weight: bold;
+      unicode-bidi: isolate;
+    }
+
+    /*
+      Chart container:
+      - fixed height (400px on desktop),
+      - bigger bottom margin so text won't overlap,
+      - scaled down on tablets/phones.
+    */
+    .chart-container {
+      margin: 80px auto 20px; /* bigger top margin (80px) and a 20px bottom margin by default */
+      position: relative;
+      height: 400px; 
+      box-sizing: border-box;
+      clear: both;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /*
+      Force a large bottom margin or spacing between chart and next section/paragraph
+      to avoid overlap on mobile.
+    */
+    .chart-container + section,
+    .chart-container + p {
+      margin-top: 60px !important; /* ensures more space */
+    }
+
+    .chart-container canvas,
+    .chart-container svg {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      main {
+        max-width: 90%;
+      }
+      .headline-part {
+        font-size: 2.5rem;
+      }
+      .headline-desc {
+        font-size: 1.2rem;
+      }
+      .start h2 {
+        font-size: 1rem;
+      }
+      .chart-container {
+        height: 300px; /* fixed height for tablets */
+        margin: 80px auto 40px; /* more bottom margin to avoid overlap */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .headline-part {
+        font-size: 2rem;
+      }
+      .headline-desc {
+        font-size: 1rem;
+      }
+      .start h2 {
+        font-size: 0.9rem;
+      }
+      section h2 {
+        font-size: 1.8rem; /* reduce heading size on phones */
+      }
+      .chart-container {
+        height: 250px; /* phone height */
+        margin: 80px auto 165px; /* bigger bottom margin for phones */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!--Header Component-->
+  <dc-header></dc-header>
+
+    <div class="start">
+      <h1 class="main-headline">
+        <span class="headline-part">Building the Future</span>
+        <span class="headline-desc">
+          Opportunities in Advanced Materials - Graphene and 2D Materials
+        </span>
+      </h1>
+      <h2>Disruptive Capital Insight Report | November 2024</h2>
+    </div>
+
+    <main>
+      <section class="fade-in">
+        <h2>Executive Summary</h2>
+        <p>
+          Graphene, a one-atom-thick layer of carbon, and other two-dimensional
+          (2D) materials are revolutionizing materials science. With unmatched
+          strength, exceptional thermal and electrical conductivity, and
+          remarkable flexibility, these advanced materials are enabling
+          groundbreaking innovations across industries.
+        </p>
+        <p>
+          In 2024, global investments in graphene production and 2D material
+          research exceeded <span>$1.2 billion</span>, signaling a shift from
+          academic exploration to commercial adoption. Applications are
+          expanding rapidly in energy storage, semiconductors, aerospace, and
+          medical devices, offering transformative opportunities for
+          forward-thinking investors and corporates.
+        </p>
+        <p>
+          <strong>Our Perspective:</strong> Advanced materials like graphene are
+          foundational breakthroughs, creating entirely new possibilities in
+          industrial design, energy efficiency, and medical precision. Early
+          movers in this sector are not merely participating—they are shaping
+          the future.
+        </p>
+      </section>
+
+      <div class="chart-container">
+        <h1>Global Market Value of Graphene (2023-2028)</h1>
+        <svg id="graphene-chart"></svg>
+        <div class="tooltip" id="graphene-tooltip"></div>
+      </div>
+
+      <section class="fade-in">
+        <h2>The Market at a Glance: Rapid Growth and Expanding Applications</h2>
+        <p>
+          The global graphene market, valued at <span>$487 million</span> in
+          2023, is projected to grow at a compound annual growth rate (CAGR) of
+          <span>38%</span>, reaching <span>$3.75 billion</span> by 2030. This
+          exponential growth is driven by the material’s ability to enable
+          high-performance solutions in clean energy, electronics, and
+          aerospace.
+        </p>
+        <h3>Why It’s Exciting</h3>
+        <ul>
+          <li>
+            <strong>Unprecedented Versatility:</strong> Graphene’s unique
+            properties unlock new levels of performance across diverse
+            applications, from ultrafast transistors to lightweight aircraft
+            components.
+          </li>
+          <li>
+            <strong>Economic Potential:</strong> The market’s rapid growth is
+            creating lucrative opportunities, particularly in high-value sectors
+            like energy storage and advanced electronics.
+          </li>
+          <li>
+            <strong>Transformative Impact:</strong> Beyond incremental
+            improvements, graphene enables entirely new technologies,
+            revolutionizing how industries approach design and efficiency.
+          </li>
+        </ul>
+        <p>
+          <strong>Key Insight:</strong> Graphene is not just a material—it is a
+          platform for innovation. Its integration across industries signals the
+          dawn of a new era in materials science.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>The Pillars of Graphene and 2D Materials</h2>
+
+        <h3>1. Energy Storage: Transforming Batteries and Supercapacitors</h3>
+        <p>
+          Graphene’s high surface area and superior conductivity make it a
+          game-changer for energy storage. It enables faster charging, longer
+          battery life, and greater energy density, addressing critical
+          challenges in electric vehicles (EVs) and renewable energy systems.
+        </p>
+        <h4>Example: G6 Materials</h4>
+        <p>
+          G6 Materials, a pioneer in graphene-enhanced batteries, demonstrated a
+          <span>50%</span> increase in charge capacity in lithium-ion cells.
+          Supercapacitors incorporating graphene are also advancing
+          rapid-charging applications, with potential to outperform traditional
+          batteries in speed and efficiency.
+        </p>
+        <p>
+          <strong>Market Potential:</strong> As global EV adoption accelerates,
+          the battery market is expected to reach <span>$95 billion</span> by
+          2028, with graphene-based solutions capturing a growing share of this
+          high-growth segment.
+        </p>
+
+        <h3>2. Semiconductors: Pushing the Boundaries of Electronics</h3>
+        <p>
+          Graphene’s exceptional conductivity and atomic thinness position it as
+          a potential replacement for silicon in semiconductors, enabling
+          faster, smaller, and more efficient devices. These properties are
+          critical for the future of artificial intelligence (AI), the Internet
+          of Things (IoT), and high-performance computing.
+        </p>
+        <h4>Case Study: IBM Graphene Transistors</h4>
+        <p>
+          IBM developed a graphene-based transistor that achieved a speed of
+          <span>427 GHz</span>, far surpassing silicon-based counterparts. This
+          milestone highlights graphene’s potential to power next-generation
+          electronics, from AI processors to IoT sensors.
+        </p>
+        <p>
+          <strong>Actionable Insight:</strong> Investors should monitor
+          partnerships between semiconductor manufacturers and advanced material
+          researchers, as breakthroughs in graphene technology could redefine
+          global electronics.
+        </p>
+
+        <h3>3. Aerospace and Defense: Redefining Strength and Weight</h3>
+        <p>
+          Graphene’s combination of extraordinary strength and low weight is
+          transforming aerospace design. By incorporating graphene into
+          structural components, manufacturers can enhance durability while
+          reducing weight, improving fuel efficiency and performance.
+        </p>
+        <h4>Example: European Graphene Flagship Project</h4>
+        <p>
+          The integration of graphene into airplane wings has reduced weight by
+          <span>20%</span>, leading to significant fuel savings and lower
+          emissions. These innovations are central to the aerospace industry’s
+          push for sustainability and efficiency.
+        </p>
+        <p>
+          <strong>Key Insight:</strong> As sustainability becomes a priority,
+          aerospace manufacturers will increasingly adopt graphene composites to
+          meet environmental and performance standards.
+        </p>
+
+        <h3>4. Medical Applications: Precision Meets Potential</h3>
+        <p>
+          Graphene’s biocompatibility and conductivity are enabling advances in
+          medical devices, drug delivery systems, and biosensors. Its ability to
+          interact with biological systems at the molecular level makes it an
+          ideal material for precision medicine.
+        </p>
+        <h4>Example: MIT Graphene Biosensors</h4>
+        <p>
+          MIT developed a graphene-based biosensor capable of detecting diseases
+          at the molecular level, enabling earlier diagnoses and targeted
+          treatments. These breakthroughs have the potential to transform
+          healthcare.
+        </p>
+        <p>
+          <strong>Market Outlook:</strong> The global biosensor market is
+          projected to reach <span>$35 billion</span> by 2027, with
+          graphene-based technologies driving next-generation solutions.
+        </p>
+      </section>
+
+      <div class="chart-container">
+        <h1>Market Capitalization of Leading Graphene Companies (2024)</h1>
+        <svg id="companies-chart"></svg>
+        <div class="tooltip" id="companies-tooltip"></div>
+      </div>
+
+      <section class="fade-in">
+        <br>
+        <h2>Regional Dynamics: Global Leaders and Emerging Hubs</h2>
+
+        <h3>United States: Driving Energy and Electronics Innovation</h3>
+        <p>
+          <strong>Investment:</strong> <span>$500 million</span> in 2024,
+          focused on energy storage and semiconductor applications.
+        </p>
+        <p><strong>Key Players:</strong> G6 Materials, Vorbeck Materials.</p>
+
+        <h3>European Union: Advancing Aerospace and Sustainability</h3>
+        <p>
+          <strong>Initiative:</strong> The <span>$1 billion</span> Graphene
+          Flagship program leads global research and commercialization efforts.
+        </p>
+        <p><strong>Focus Areas:</strong> Aerospace, defense, and sustainable materials.</p>
+
+        <h3>China: Leading in Production Capacity</h3>
+        <p>
+          <strong>Investment:</strong> Over <span>$300 million</span> in
+          graphene production facilities, establishing China as the largest
+          manufacturer of graphene globally.
+        </p>
+        <p>
+          <strong>Key Insight:</strong> Regional specialization is accelerating
+          the development of graphene’s commercial applications, creating unique
+          opportunities for strategic partnerships and localized production.
+        </p>
+      </section>
+
+      <div class="chart-container">
+        <h1>Global Graphite Reserves (2010-2023)</h1>
+        <svg id="graphite-chart"></svg>
+      </div>
+
+      <section class="fade-in">
+        <h2>Barriers to Scale: Challenges and Opportunities</h2>
+        <ul>
+          <li>
+            <strong>High Production Costs:</strong> Current methods like
+            chemical vapor deposition (CVD) are expensive, limiting scalability.
+          </li>
+          <li>
+            <strong>Standardization Issues:</strong> A lack of uniform quality
+            and production standards hinders industrial adoption.
+          </li>
+          <li>
+            <strong>Regulatory Hurdles:</strong> Aerospace and medical
+            applications face stringent approval processes, slowing
+            commercialization timelines.
+          </li>
+        </ul>
+        <p>
+          <strong>Strategic Opportunity:</strong> Investments in scalable
+          production technologies and quality standardization will unlock
+          widespread adoption and accelerate market growth.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Strategic Recommendations: Unlocking the Graphene Revolution</h2>
+        <ol>
+          <li>
+            <h3>Scale Production Efficiently</h3>
+            <p>
+              Invest in advanced production methods such as CVD to reduce costs
+              and improve scalability.
+            </p>
+            <p>
+              Explore opportunities to localize production in regions with
+              strong government support and incentives.
+            </p>
+          </li>
+          <li>
+            <h3>Partner with Industry Leaders</h3>
+            <p>
+              Collaborate with established players in energy storage, aerospace,
+              and semiconductors to integrate graphene into commercial products.
+            </p>
+            <p>
+              Support research partnerships to advance application-specific
+              innovations.
+            </p>
+          </li>
+          <li>
+            <h3>Focus on High-Value Applications</h3>
+            <p>
+              Prioritize markets with immediate ROI, such as energy storage and
+              aerospace.
+            </p>
+            <p>
+              Continue supporting R&D for longer-term opportunities in
+              healthcare and electronics.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="fade-in">
+        <h2>Conclusion: Redefining Innovation with 2D Materials</h2>
+        <p>
+          Graphene and other 2D materials are redefining industries with their
+          exceptional properties and transformative potential. As
+          commercialization accelerates, stakeholders investing in this
+          high-growth sector today will lead the markets of tomorrow. From
+          energy to aerospace and beyond, graphene is not just a material—it is
+          the foundation of a new industrial revolution.
+        </p>
+      </section>
+
+      <section class="fade-in">
+        <h2>Call to Action</h2>
+        <p>
+          Gain unparalleled insights into emerging trends and disruptive markets
+          with <strong>Disruptive Capital</strong>. Contact us to discover
+          tailored strategies and unlock the immense opportunities shaping the
+          future.
+        </p>
+        <p><strong>Take the first step—partner with us today.</strong></p>
+      </section>
+    </main>
+
+  <!-- D3 Scripts for Charts -->
+  <script>
+    // ========================== GRAPHENE CHART (BAR CHART) ==========================
+    const grapheneData = [
+      { year: "2023", value: 0.49 },
+      { year: "2028", value: 3.75 }
+    ];
+
+    const grapheneMargin = { top: 30, right: 30, bottom: 50, left: 60 };
+    const grapheneWidth = 900 - grapheneMargin.left - grapheneMargin.right;
+    const grapheneHeight = 400 - grapheneMargin.top - grapheneMargin.bottom;
+
+    const grapheneSvg = d3
+      .select("#graphene-chart")
+      .attr(
+        "viewBox",
+        `0 0 ${grapheneWidth + grapheneMargin.left + grapheneMargin.right}
+              ${grapheneHeight + grapheneMargin.top + grapheneMargin.bottom}`
+      )
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .style("width", "100%")
+      .style("height", "auto")
+      .append("g")
+      .attr("transform", `translate(${grapheneMargin.left},${grapheneMargin.top})`);
+
+    const grapheneX = d3
+      .scaleBand()
+      .domain(grapheneData.map((d) => d.year))
+      .range([0, grapheneWidth])
+      .padding(0.2);
+
+    const grapheneY = d3
+      .scaleLinear()
+      .domain([0, d3.max(grapheneData, (d) => d.value)])
+      .nice()
+      .range([grapheneHeight, 0]);
+
+    grapheneSvg
+      .append("g")
+      .attr("transform", `translate(0,${grapheneHeight})`)
+      .call(d3.axisBottom(grapheneX))
+      .style("font-size", "14px");
+
+    grapheneSvg
+      .append("g")
+      .call(d3.axisLeft(grapheneY).ticks(6))
+      .style("font-size", "14px");
+
+    const grapheneTooltip = d3.select("#graphene-tooltip");
+
+    grapheneSvg
+      .selectAll(".bar")
+      .data(grapheneData)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d) => grapheneX(d.year))
+      .attr("y", grapheneHeight)
+      .attr("width", grapheneX.bandwidth())
+      .attr("height", 0)
+      .attr("fill", "#007aff")
+      .on("mouseover", (event, d) => {
+        grapheneTooltip
+          .style("display", "block")
+          .html(`<strong>${d.year}</strong>: $${d.value}B`)
+          .style("left", event.pageX + "px")
+          .style("top", event.pageY - 40 + "px");
+      })
+      .on("mouseout", () => grapheneTooltip.style("display", "none"))
+      .transition()
+      .duration(1000)
+      .delay((_, i) => i * 500)
+      .attr("y", (d) => grapheneY(d.value))
+      .attr("height", (d) => grapheneHeight - grapheneY(d.value));
+
+    // ========================== GRAPHITE CHART (LINE CHART) ==========================
+    const graphiteData = [
+      { year: 2010, value: 71 },
+      { year: 2011, value: 77 },
+      { year: 2012, value: 77 },
+      { year: 2013, value: 130 },
+      { year: 2014, value: 110 },
+      { year: 2015, value: 230 },
+      { year: 2016, value: 250 },
+      { year: 2017, value: 270 },
+      { year: 2018, value: 300 },
+      { year: 2019, value: 300 },
+      { year: 2020, value: 320 },
+      { year: 2021, value: 320 },
+      { year: 2022, value: 330 },
+      { year: 2023, value: 280 }
+    ];
+
+    const graphiteMargin = { top: 40, right: 40, bottom: 50, left: 60 };
+    const graphiteWidth = 900 - graphiteMargin.left - graphiteMargin.right;
+    const graphiteHeight = 500 - graphiteMargin.top - graphiteMargin.bottom;
+
+    const graphiteSvg = d3
+      .select("#graphite-chart")
+      .attr(
+        "viewBox",
+        `0 0 ${graphiteWidth + graphiteMargin.left + graphiteMargin.right}
+              ${graphiteHeight + graphiteMargin.top + graphiteMargin.bottom}`
+      )
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .style("width", "100%")
+      .style("height", "auto")
+      .append("g")
+      .attr("transform", `translate(${graphiteMargin.left},${graphiteMargin.top})`);
+
+    const graphiteX = d3
+      .scaleLinear()
+      .domain(d3.extent(graphiteData, (d) => d.year))
+      .range([0, graphiteWidth]);
+
+    const graphiteY = d3
+      .scaleLinear()
+      .domain([0, d3.max(graphiteData, (d) => d.value)])
+      .nice()
+      .range([graphiteHeight, 0]);
+
+    graphiteSvg
+      .append("g")
+      .attr("transform", `translate(0,${graphiteHeight})`)
+      .call(d3.axisBottom(graphiteX).tickFormat(d3.format("d")))
+      .style("font-size", "14px");
+
+    graphiteSvg
+      .append("g")
+      .call(d3.axisLeft(graphiteY))
+      .style("font-size", "14px");
+
+    const graphiteTooltip = d3.select("#graphite-tooltip");
+
+    const line = d3
+      .line()
+      .x((d) => graphiteX(d.year))
+      .y((d) => graphiteY(d.value))
+      .curve(d3.curveMonotoneX);
+
+    const path = graphiteSvg
+      .append("path")
+      .datum(graphiteData)
+      .attr("fill", "none")
+      .attr("stroke", "#007aff")
+      .attr("stroke-width", 2)
+      .attr("d", line);
+
+    const totalLength = path.node().getTotalLength();
+
+    path
+      .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+      .duration(2000)
+      .ease(d3.easeCubicInOut)
+      .attr("stroke-dashoffset", 0);
+
+    graphiteSvg
+      .selectAll(".dot")
+      .data(graphiteData)
+      .enter()
+      .append("circle")
+      .attr("cx", (d) => graphiteX(d.year))
+      .attr("cy", (d) => graphiteY(d.value))
+      .attr("r", 5)
+      .attr("fill", "#007aff")
+      .attr("stroke", "#ffffff")
+      .attr("stroke-width", 1.5)
+      .on("mouseover", (event, d) => {
+        graphiteTooltip
+          .style("display", "block")
+          .html(`<strong>${d.year}</strong>: ${d.value} million metric tons`)
+          .style("left", event.pageX + "px")
+          .style("top", event.pageY - 40 + "px");
+      })
+      .on("mouseout", () => graphiteTooltip.style("display", "none"));
+  </script>
+
+  <script>
+    // Data for the companies chart
+    const companyData = [
+      { company: "NanoXplore", value: 280.88 },
+      { company: "Talga Group", value: 105.31 },
+      { company: "CVD Equipment", value: 22.29 },
+      { company: "Directa Plus", value: 22.25 },
+      { company: "First Graphene", value: 21.29 },
+      { company: "Black Swan Graphene", value: 10.67 },
+      { company: "Haydale Graphene Industries", value: 6.48 }
+    ];
+
+    // Chart dimensions
+    const margin = { top: 30, right: 30, bottom: 70, left: 100 };
+    const width = 900 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
+
+    // Create responsive SVG canvas
+    const svg = d3
+      .select("#companies-chart")
+      .attr(
+        "viewBox",
+        `0 0 ${width + margin.left + margin.right}
+              ${height + margin.top + margin.bottom}`
+      )
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .style("width", "100%")
+      .style("height", "auto")
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    // Scales
+    const xScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(companyData, (d) => d.value)])
+      .range([0, width])
+      .nice();
+
+    const yScale = d3
+      .scaleBand()
+      .domain(companyData.map((d) => d.company))
+      .range([0, height])
+      .padding(0.2);
+
+    // Add Y axis
+    svg
+      .append("g")
+      .call(d3.axisLeft(yScale).tickSize(0))
+      .style("font-size", "14px")
+      .selectAll("text")
+      .style("font-weight", "500");
+
+    // Add X axis
+    svg
+      .append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(xScale).ticks(5).tickFormat((d) => `$${d}M`))
+      .style("font-size", "14px");
+
+    // Tooltip
+    const tooltip = d3.select("#companies-tooltip");
+
+    // Draw bars with animation
+    svg
+      .selectAll(".bar")
+      .data(companyData)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("y", (d) => yScale(d.company))
+      .attr("x", 0)
+      .attr("width", 0)
+      .attr("height", yScale.bandwidth())
+      .attr("fill", "#007aff")
+      .on("mouseover", (event, d) => {
+        tooltip
+          .style("display", "block")
+          .html(`<strong>${d.company}</strong><br>Market Cap: $${d.value}M`)
+          .style("left", event.pageX + "px")
+          .style("top", event.pageY - 40 + "px");
+      })
+      .on("mouseout", () => tooltip.style("display", "none"))
+      .transition()
+      .duration(1000)
+      .delay((_, i) => i * 200)
+      .attr("width", (d) => xScale(d.value));
+
+    // Add X-axis label
+    svg
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr(
+        "transform",
+        `translate(${width / 2}, ${height + margin.bottom - 20})`
+      )
+      .text("Market Capitalization (in Million USD)")
+      .style("font-size", "14px");
+
+    // Add Y-axis label
+    svg
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("transform", `translate(${-margin.left + 20}, ${height / 2}) rotate(-90)`)
+      .text("Company")
+      .style("font-size", "14px");
+  </script>
+
+  <script>
+    // Fade-in effect
+    document.addEventListener("DOMContentLoaded", () => {
+      const fadeInSections = document.querySelectorAll(".fade-in");
+
+      const revealSections = () => {
+        fadeInSections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const triggerPoint = window.innerHeight - section.offsetHeight / 4;
+
+          if (sectionTop < triggerPoint) {
+            section.classList.add("visible");
+          }
+        });
+      };
+
+      window.addEventListener("scroll", revealSections);
+      revealSections();
+    });
+  </script>
+
+  <!-- Custom header component script -->
+  <script src="./components/Header.js"></script>
+</body>
+</html>
